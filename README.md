@@ -320,18 +320,33 @@ This compiles TypeScript sources in `src/` to `dist/`.
 
 ## Configuration
 
-The server reads its API key from the environment:
+The server reads its configuration from the environment:
 
 | Variable | Required | Description |
 | --- | --- | --- |
 | `NEURALVERGE_API_KEY` | Yes | Your NeuralVerge API bearer token (see [Getting an API key](#getting-an-api-key)). |
-| `NEURALVERGE_BASE_URL` | No | Override the API base URL. Defaults to `https://api.neuralverge.ai`. |
+| `NEURALVERGE_BASE_URL` | No | Override the NeuralVerge API base URL. Defaults to `https://api.neuralverge.ai`. |
+| `MCP_TRANSPORT` | No | `stdio` (default) or `http`. See [Transports & client compatibility](#transports--client-compatibility) below. |
+| `MCP_HTTP_PORT` | No | Port for `http` transport. Defaults to `8787`. |
+| `MCP_HTTP_PATH` | No | HTTP path for the MCP endpoint. Defaults to `/mcp`. |
+| `MCP_HTTP_AUTH_TOKEN` | No | If set, `http` transport requires `Authorization: Bearer <token>` on every request. Strongly recommended if the server is reachable over the internet. |
 
-Copy `.env.example` to `.env` for local reference, but note the server itself reads process environment variables — most MCP clients pass these via their own config (see below), not via a `.env` file.
+Copy `.env.example` to `.env` for local reference, but note the server itself reads process environment variables — most MCP clients pass these via their own config, not via a `.env` file.
 
-## Usage with MCP clients
+## Transports & client compatibility
 
-Add to your MCP client's config — this works the same way in Claude Desktop, Claude Code, Cursor, and any other client that speaks MCP over stdio (e.g. `claude_desktop_config.json`, `.cursor/mcp.json`):
+This server implements **both** MCP transports, selected via `MCP_TRANSPORT`, because different clients require different ones:
+
+| Client | Transport it needs | Works with this server? |
+| --- | --- | --- |
+| Claude Desktop, Claude Code | stdio (spawns a local process) | ✅ `MCP_TRANSPORT` unset/`stdio` (default) |
+| Cursor | stdio (spawns a local process, same `mcpServers` config shape) | ✅ `MCP_TRANSPORT` unset/`stdio` (default) |
+| ChatGPT (Developer Mode / custom connectors) | Remote Streamable HTTP or SSE over HTTPS — **cannot** spawn local stdio commands | ✅ `MCP_TRANSPORT=http`, deployed somewhere reachable (or tunneled) |
+| Any other MCP client | stdio or Streamable HTTP | ✅ pick whichever transport it speaks |
+
+### stdio (Claude Desktop, Claude Code, Cursor)
+
+These clients spawn the server as a local subprocess and talk JSON-RPC over its stdin/stdout — no networking involved. Add this to your client's MCP config (`claude_desktop_config.json` for Claude Desktop, `.cursor/mcp.json` for Cursor — the shape is identical):
 
 ```json
 {
@@ -347,6 +362,24 @@ Add to your MCP client's config — this works the same way in Claude Desktop, C
 }
 ```
 
+### Streamable HTTP (ChatGPT / remote clients)
+
+ChatGPT's MCP connectors only accept **remote** servers over Streamable HTTP or SSE — they cannot launch a local `node`/`npx` process the way Claude Desktop and Cursor do. To use this server from ChatGPT, run it in HTTP mode and make it reachable over HTTPS:
+
+```bash
+MCP_TRANSPORT=http MCP_HTTP_PORT=8787 MCP_HTTP_AUTH_TOKEN=some_shared_secret \
+NEURALVERGE_API_KEY=your_api_key_here node dist/index.js
+```
+
+This starts a stateless Streamable HTTP server (fresh MCP session per request, no server-side session storage) at `http://localhost:8787/mcp`, plus a `GET /health` check. To reach it from ChatGPT you need a public HTTPS URL — either:
+
+- deploy it to any Node host (Fly.io, Render, a VPS, a container platform, etc.), or
+- tunnel your local instance for testing (e.g. `ngrok http 8787` or a Cloudflare Tunnel).
+
+Then in ChatGPT: enable **Developer Mode** (Settings → Connectors → Advanced), add a connector pointing at `https://your-host/mcp`, and set the `Authorization: Bearer <MCP_HTTP_AUTH_TOKEN>` header if you set one.
+
+**Security note:** `NEURALVERGE_API_KEY` lives on the server and is shared by everyone who can reach the HTTP endpoint — it is not per-ChatGPT-user. Always set `MCP_HTTP_AUTH_TOKEN` (or put the server behind your own auth) before exposing it publicly; otherwise anyone with the URL can spend your NeuralVerge points.
+
 ## Manual testing
 
 You can exercise the server with the official [MCP Inspector](https://github.com/modelcontextprotocol/inspector):
@@ -354,6 +387,8 @@ You can exercise the server with the official [MCP Inspector](https://github.com
 ```bash
 NEURALVERGE_API_KEY=your_api_key_here npm run inspector
 ```
+
+The Inspector's "HTTP" connection mode also works against the `http` transport (point it at `http://localhost:8787/mcp`), which is a convenient way to sanity-check the ChatGPT-facing path without a real ChatGPT connector.
 
 ## Error handling
 
@@ -373,7 +408,7 @@ The NeuralVerge API returns these status codes, which this server surfaces as MC
 src/
   client.ts   # thin fetch wrapper: auth header, error mapping
   tools.ts     # all 16 MCP tool definitions (input schemas + handlers)
-  index.ts     # MCP server bootstrap (stdio transport)
+  index.ts     # MCP server bootstrap (stdio transport, or Streamable HTTP if MCP_TRANSPORT=http)
 ```
 
 ## License

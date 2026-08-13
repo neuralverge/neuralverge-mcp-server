@@ -1,0 +1,41 @@
+{
+  "name": "neuralverge-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server wrapping the NeuralVerge API (AI Research, AI Extract, AI Agents, Data Sources)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "neuralverge-mcp-server": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch",
+    "inspector": "npx @modelcontextprotocol/inspector node dist/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "neuralverge",
+    "ai-research",
+    "ai-extract",
+    "ai-agents",
+    "linkedin",
+    "data-enrichment"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "typescript": "^5.5.0"
+  }
+}

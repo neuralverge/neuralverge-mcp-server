@@ -1,7 +1,7 @@
 {
   "name": "neuralverge-mcp-server",
   "version": "1.0.0",
-  "description": "MCP server wrapping the NeuralVerge API (AI Research, AI Extract, AI Agents, Data Sources)",
+  "description": "MCP server wrapping the NeuralVerge API (AI Research, AI Extract, AI Agents, and Data Sources: LinkedIn, Crunchbase, Email enrichment and lookup, Phone enrichment and lookup, Email verification)",
   "type": "module",
   "main": "dist/index.js",
   "bin": {

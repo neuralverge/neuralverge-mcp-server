@@ -1,8 +1,19 @@
 # NeuralVerge MCP Server
 
-An [MCP](https://modelcontextprotocol.io) (Model Context Protocol) server that wraps the full [NeuralVerge](https://docs.neuralverge.ai) API — Search, AI Extract, and all Data Sources (LinkedIn, Crunchbase, email/phone enrichment, e-commerce marketplaces, product reviews, company registries, startup & funding data) — as MCP tools, so any MCP-compatible client (Claude Desktop, Claude Code, Cursor, ChatGPT/GPT clients with MCP support, and others) can call it directly.
+**The data layer for agentic AI.**
 
-This is an independent, unofficial wrapper around the NeuralVerge API. It is not affiliated with or endorsed by NeuralVerge.
+One API and MCP server that gives an agent verified, structured, cited facts about the real world, mid-task. Agents don't need search results or raw HTML — they need a finished answer, from one API instead of five vendors.
+
+NeuralVerge draws structured data from 300+ sources — e-commerce marketplaces, corporate registries, startup and funding data, company intelligence, product reviews, enrichment and social — plus the open web, all in one request format. This [MCP](https://modelcontextprotocol.io) (Model Context Protocol) server exposes Search, AI Extract and every Data Source as tools, so any MCP-compatible client (Claude, ChatGPT, Gemini, Cursor and others) can call them directly. No scrapers, no pipelines, no glue code. Plans from $50/month.
+
+## Why NeuralVerge
+
+- **The real world, structured.** E-commerce, company and people data from marketplaces, official registries and vertical sources, not just the web — all returned as JSON.
+- **One API instead of five.** Search, extraction and enrichment on one key and one balance, with one request format and no per-source fees or separate contracts.
+- **Agent-native.** Tools are available to the agent mid-task over MCP, with no glue code.
+- **Cost you control.** Points-based pricing: extraction and search at 5 points per call, plans from $50/month (see [Pricing](#pricing)).
+
+Teams use NeuralVerge for agentic products, go-to-market, outbound, market research, competitor analysis, brand monitoring, public procurement, e-commerce intelligence, due diligence, KYC/KYB and recruiting.
 
 ## Getting an API key
 
@@ -15,14 +26,12 @@ Before installing, you need a NeuralVerge account and an API key:
 
 ## MCP server overview
 
-NeuralVerge exposes its API as a remote [Model Context Protocol](https://modelcontextprotocol.io) (MCP) server, so any MCP-compatible client — Claude, ChatGPT, Cursor, or a custom agent — can call Search, AI Extract, and every Data Source (including marketplaces and product reviews) directly as tools, without writing any HTTP integration code. See the official page: [docs.neuralverge.ai/mcp-server](https://docs.neuralverge.ai/mcp-server).
+NeuralVerge exposes its data layer as a remote [Model Context Protocol](https://modelcontextprotocol.io) (MCP) server, so any MCP-compatible client — Claude, ChatGPT, Gemini, Cursor, or a custom agent — can call Search, AI Extract, and every Data Source (including marketplaces and product reviews) directly as tools, without writing any HTTP integration code. See the official page: [docs.neuralverge.ai/mcp-server](https://docs.neuralverge.ai/mcp-server).
 
 This repository is a **self-hosted equivalent** of that server: same tool names, same input schemas, same behavior, and it can run either as a local stdio process or as a Streamable HTTP server. Notes:
 
 - AI Research is **not** available over MCP: a research run is asynchronous, while an MCP tool has to return its result inside the call. Start research runs over the [REST API](https://docs.neuralverge.ai/ai-research) instead.
 - Total tool count: **342** — `run_search`, `run_extract` and every Data Source endpoint.
-
-> **About the "251 tools" figure.** The hosted docs page says the server exposes 251 tools, but the tables on that same page list **342** tools. The 251 in the prose is outdated; this server exposes all 342.
 
 ### Quickstart
 

@@ -3,71 +3,11 @@ import type { EndpointDef } from "./endpoint-types.js";
 
 export const endpoints: EndpointDef[] = [
  {
-  "name": "run_research",
-  "method": "POST",
-  "path": "/functions/v1/run-research",
-  "tag": "AI Research",
-  "description": "Starts the full research workflow and returns a session id immediately. [AI Research]",
-  "schema": {
-   "type": "object",
-   "required": [
-    "instructions",
-    "settings"
-   ],
-   "properties": {
-    "instructions": {
-     "type": "string",
-     "description": "Main research task."
-    },
-    "settings": {
-     "type": "object",
-     "properties": {
-      "country_code": {
-       "type": "string"
-      },
-      "search_enabled": {
-       "type": "boolean"
-      },
-      "deepsearch_model": {
-       "type": "string"
-      },
-      "finalizer_model": {
-       "type": "string"
-      },
-      "extract_schema_json": {
-       "type": "string"
-      }
-     }
-    }
-   }
-  }
- },
- {
-  "name": "get_session_status",
-  "method": "GET",
-  "path": "/functions/v1/get-session-status",
-  "tag": "AI Research",
-  "description": "Returns a research session by its session_id: its status and, once complete, the final result. Poll it after Run Research. [AI Research]",
-  "schema": {
-   "type": "object",
-   "properties": {
-    "session_id": {
-     "type": "string",
-     "description": "Session identifier.",
-     "format": "uuid"
-    }
-   },
-   "required": [
-    "session_id"
-   ]
-  }
- },
- {
   "name": "run_search",
   "method": "POST",
   "path": "/functions/v1/run-search",
   "tag": "Search",
-  "description": "Runs a web search and returns a structured search payload. [Search]",
+  "description": "Runs a web search and returns a structured search payload.",
   "schema": {
    "type": "object",
    "required": [
@@ -100,7 +40,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-extract",
   "tag": "AI Extract",
-  "description": "Loads a page by URL and extracts structured data. [AI Extract]",
+  "description": "Loads a page by URL and extracts structured data.",
   "schema": {
    "type": "object",
    "required": [
@@ -134,7 +74,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-linkedin-email",
   "tag": "Social media",
-  "description": "Looks up a LinkedIn profile and returns contact details, including email when available. [Social media]",
+  "description": "Looks up a LinkedIn profile and returns contact details, including email when available.",
   "schema": {
    "type": "object",
    "required": [
@@ -153,7 +93,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-linkedin-domain",
   "tag": "Social media",
-  "description": "Finds a LinkedIn profile by company name or domain and full name. [Social media]",
+  "description": "Finds a LinkedIn profile by company name or domain and full name.",
   "schema": {
    "type": "object",
    "required": [
@@ -175,7 +115,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-linkedin-company-search",
   "tag": "Social media",
-  "description": "Searches LinkedIn companies by query and optional filters. [Social media]",
+  "description": "Searches LinkedIn companies by query and optional filters.",
   "schema": {
    "type": "object",
    "required": [
@@ -220,7 +160,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-linkedin-people-search",
   "tag": "Social media",
-  "description": "Searches LinkedIn people using optional query terms and advanced filters. [Social media]",
+  "description": "Searches LinkedIn people using optional query terms and advanced filters.",
   "schema": {
    "type": "object",
    "properties": {
@@ -322,7 +262,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-linkedin-company-employee",
   "tag": "Social media",
-  "description": "Searches LinkedIn employees for one or more companies using people-style filters. [Social media]",
+  "description": "Searches LinkedIn employees for one or more companies using people-style filters.",
   "schema": {
    "type": "object",
    "required": [
@@ -409,7 +349,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-email-enrichment",
   "tag": "Enrichment",
-  "description": "Enriches a known email address with profile-related data when available. [Enrichment]",
+  "description": "Enriches a known email address with profile-related data when available.",
   "schema": {
    "type": "object",
    "required": [
@@ -428,7 +368,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-email-validation",
   "tag": "Enrichment",
-  "description": "Validates an email address and returns deliverability signals. [Enrichment]",
+  "description": "Validates an email address and returns deliverability signals.",
   "schema": {
    "type": "object",
    "required": [
@@ -447,7 +387,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-email-finder",
   "tag": "Enrichment",
-  "description": "Finds a professional email address using company domain, first name, and last name. [Enrichment]",
+  "description": "Finds a professional email address using company domain, first name, and last name.",
   "schema": {
    "type": "object",
    "required": [
@@ -473,7 +413,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-phone-enrichment",
   "tag": "Enrichment",
-  "description": "Enriches a known phone number with profile data when available. [Enrichment]",
+  "description": "Enriches a known phone number with profile data when available.",
   "schema": {
    "type": "object",
    "required": [
@@ -491,7 +431,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-phone-enrichment-us",
   "tag": "Enrichment",
-  "description": "Validates and enriches a US phone number with carrier and activity details. [Enrichment]",
+  "description": "Validates and enriches a US phone number with carrier and activity details.",
   "schema": {
    "type": "object",
    "required": [
@@ -509,7 +449,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-crunchbase-company",
   "tag": "Company intelligence",
-  "description": "Fetches structured company data from a Crunchbase company URL. [Company intelligence]",
+  "description": "Fetches structured company data from a Crunchbase company URL.",
   "schema": {
    "type": "object",
    "required": [
@@ -527,7 +467,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-amazon-product-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search Amazon and extract product listings (title, URL, price, rating) across paginated results. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search Amazon and extract product listings (title, URL, price, rating) across paginated results. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -585,7 +525,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-amazon-product",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get full Amazon product details by ASIN: title, brand, price, images, rating, features, and seller. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get full Amazon product details by ASIN: title, brand, price, images, rating, features, and seller. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -630,7 +570,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-amazon-product-offers",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get all marketplace offers for an Amazon product by ASIN: price, condition, seller, and delivery. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get all marketplace offers for an Amazon product by ASIN: price, condition, seller, and delivery. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -675,7 +615,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-amazon-seller",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get an Amazon seller profile by seller ID: name, rating, business details, and contact info. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get an Amazon seller profile by seller ID: name, rating, business details, and contact info. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -720,7 +660,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-amazon-seller-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "List products sold by an Amazon seller's storefront: title, URL, price, rating, and image. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "List products sold by an Amazon seller's storefront: title, URL, price, rating, and image. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -778,7 +718,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ebay-category",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get the full eBay browse category tree: every department, category, and subcategory. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get the full eBay browse category tree: every department, category, and subcategory. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "properties": {}
@@ -789,7 +729,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ebay-item",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get full eBay listing details by item ID: title, price, condition, images, and seller. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get full eBay listing details by item ID: title, price, condition, images, and seller. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -808,7 +748,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ebay-item-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search active eBay listings by keyword: title, price, condition, and seller summary. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search active eBay listings by keyword: title, price, condition, and seller summary. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -880,7 +820,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ebay-product",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get eBay catalog product details by ePID: brand, model, rating, price range, and specs. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get eBay catalog product details by ePID: brand, model, rating, price range, and specs. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -899,7 +839,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ebay-product-reviews",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get buyer reviews for an eBay catalog product by ePID: rating, text, and author. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Get buyer reviews for an eBay catalog product by ePID: rating, text, and author. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -931,7 +871,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ebay-seller",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get an eBay seller/store profile by username: feedback, ratings, and store details. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get an eBay seller/store profile by username: feedback, ratings, and store details. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -950,7 +890,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ebay-seller-feedback",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get feedback reviews received by an eBay seller: rating, reviewer, and related item. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Get feedback reviews received by an eBay seller: rating, reviewer, and related item. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -982,7 +922,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ebay-seller-items",
   "tag": "E-commerce & Marketplaces",
-  "description": "List active eBay listings for a seller: title, price, condition, and image. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "List active eBay listings for a seller: title, price, condition, and image. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -1014,7 +954,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-walmart-product",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get full Walmart product details by item ID: brand, price, rating, and specifications. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get full Walmart product details by item ID: brand, price, rating, and specifications. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -1033,7 +973,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-walmart-product-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search Walmart products by keyword: title, price, rating, and seller. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search Walmart products by keyword: title, price, rating, and seller. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -1084,7 +1024,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-walmart-product-reviews",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get customer reviews for a Walmart product by item ID: rating, text, and author. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Get customer reviews for a Walmart product by item ID: rating, text, and author. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -1116,7 +1056,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-walmart-seller",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get a Walmart marketplace seller profile by seller ID: rating, location, and contact info. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get a Walmart marketplace seller profile by seller ID: rating, location, and contact info. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -1135,7 +1075,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-walmart-seller-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "List products from a Walmart seller's storefront: title, price, rating, and availability. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "List products from a Walmart seller's storefront: title, price, rating, and availability. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -1167,7 +1107,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-aliexpress-product",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get AliExpress product details by ID: title, price, images, and store. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get AliExpress product details by ID: title, price, images, and store. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -1257,7 +1197,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-aliexpress-product-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search AliExpress products by keyword: title, price, and image. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search AliExpress products by keyword: title, price, and image. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -1405,7 +1345,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-aliexpress-product-reviews",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get buyer reviews for an AliExpress product by ID: rating, text, and buyer details. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Get buyer reviews for an AliExpress product by ID: rating, text, and buyer details. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -1515,7 +1455,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-alibaba-product-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search Alibaba products by keyword: price, MOQ, supplier, and certifications. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search Alibaba products by keyword: price, MOQ, supplier, and certifications. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -1541,7 +1481,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-capterra-products-search",
   "tag": "Product reviews",
-  "description": "Search Capterra software products by keyword: name, rating, review count, and image. 1 point per returned record. [Product reviews]",
+  "description": "Search Capterra software products by keyword: name, rating, review count, and image. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -1567,7 +1507,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-capterra-products",
   "tag": "Product reviews",
-  "description": "Get full Capterra product details by id or URL: vendor, pricing, ratings, and features. Flat 5 points per successful run. [Product reviews]",
+  "description": "Get full Capterra product details by id or URL: vendor, pricing, ratings, and features. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -1586,7 +1526,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-capterra-products-reviews",
   "tag": "Product reviews",
-  "description": "Get user reviews for a Capterra product by id or URL: rating, pros/cons, and author. 1 point per returned record. [Product reviews]",
+  "description": "Get user reviews for a Capterra product by id or URL: rating, pros/cons, and author. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -1612,7 +1552,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-capterra-categories",
   "tag": "Product reviews",
-  "description": "List Capterra software categories: name, alias, and canonical URL. Flat 5 points per successful run. [Product reviews]",
+  "description": "List Capterra software categories: name, alias, and canonical URL. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "properties": {}
@@ -1623,7 +1563,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-capterra-categories-products",
   "tag": "Product reviews",
-  "description": "List Capterra products within a software category, ranked as Capterra ranks them. 1 point per returned record. [Product reviews]",
+  "description": "List Capterra products within a software category, ranked as Capterra ranks them. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -1649,7 +1589,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-gartner-products-search",
   "tag": "Product reviews",
-  "description": "Search Gartner Peer Insights products by keyword: name, vendor, and review count. 1 point per returned record. [Product reviews]",
+  "description": "Search Gartner Peer Insights products by keyword: name, vendor, and review count. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -1675,7 +1615,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-gartner-products",
   "tag": "Product reviews",
-  "description": "Get full Gartner Peer Insights product details by alias or URL: vendor, ratings, and company profile. Flat 5 points per successful run. [Product reviews]",
+  "description": "Get full Gartner Peer Insights product details by alias or URL: vendor, ratings, and company profile. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -1694,7 +1634,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-gartner-vendors",
   "tag": "Product reviews",
-  "description": "Get a Gartner Peer Insights vendor profile by alias or URL: markets, products, and ratings. Flat 5 points per successful run. [Product reviews]",
+  "description": "Get a Gartner Peer Insights vendor profile by alias or URL: markets, products, and ratings. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -1713,7 +1653,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-gartner-categories",
   "tag": "Product reviews",
-  "description": "Get the full Gartner Peer Insights category and market taxonomy. Flat 5 points per successful run. [Product reviews]",
+  "description": "Get the full Gartner Peer Insights category and market taxonomy. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "properties": {}
@@ -1724,7 +1664,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-gartner-markets",
   "tag": "Product reviews",
-  "description": "Get a Gartner Peer Insights market profile by alias or URL: features, research, and lessons learned. Flat 5 points per successful run. [Product reviews]",
+  "description": "Get a Gartner Peer Insights market profile by alias or URL: features, research, and lessons learned. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -1743,7 +1683,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-gartner-markets-products",
   "tag": "Product reviews",
-  "description": "List ranked Gartner Peer Insights products within a market, with ratings and vendors. 1 point per returned record. [Product reviews]",
+  "description": "List ranked Gartner Peer Insights products within a market, with ratings and vendors. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -1769,7 +1709,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-gartner-markets-search",
   "tag": "Product reviews",
-  "description": "Search Gartner Peer Insights markets (software categories) by keyword. 1 point per returned record. [Product reviews]",
+  "description": "Search Gartner Peer Insights markets (software categories) by keyword. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -1795,7 +1735,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-trustpilot-search",
   "tag": "Product reviews",
-  "description": "Search Trustpilot businesses by keyword: name, domain, rating, and review count. 1 point per returned record. [Product reviews]",
+  "description": "Search Trustpilot businesses by keyword: name, domain, rating, and review count. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -1821,7 +1761,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-trustpilot",
   "tag": "Product reviews",
-  "description": "Get full Trustpilot business profile by domain or URL: rating breakdown, claim status, and reply behavior. Flat 5 points per successful run. [Product reviews]",
+  "description": "Get full Trustpilot business profile by domain or URL: rating breakdown, claim status, and reply behavior. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -1840,7 +1780,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-trustpilot-reviews",
   "tag": "Product reviews",
-  "description": "Get customer reviews for a Trustpilot business by domain or URL: rating, text, and author. 1 point per returned record. [Product reviews]",
+  "description": "Get customer reviews for a Trustpilot business by domain or URL: rating, text, and author. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -1866,7 +1806,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-alibaba-product",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get full Alibaba product details by ID or URL: price tiers, MOQ, attributes, variants, and supplier. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get full Alibaba product details by ID or URL: price tiers, MOQ, attributes, variants, and supplier. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -1885,7 +1825,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-avito-categories",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get the Avito category tree: departments and sub-categories with id, name, alias (URL slug for the category filter), parent id, level and browse URL. 5 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Get the Avito category tree: departments and sub-categories with id, name, alias (URL slug for the category filter), parent id, level and browse URL. 5 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {}
@@ -1896,7 +1836,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-avito-items",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get a full Avito listing by id or URL: title, price (RUB), description, specification params, category and breadcrumbs, address and coordinates, view counts, posting time, photos and seller. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get a full Avito listing by id or URL: title, price (RUB), description, specification params, category and breadcrumbs, address and coordinates, view counts, posting time, photos and seller. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -1915,7 +1855,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-avito-items-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search Avito listings by keyword with region, category, price range, sort, seller type, Avito Delivery and attribute filters. Returns title, price, location, coordinates, image and seller for each listing. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search Avito listings by keyword with region, category, price range, sort, seller type, Avito Delivery and attribute filters. Returns title, price, location, coordinates, image and seller for each listing. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -1992,7 +1932,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-avito-sellers",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get an Avito seller (brand page) by slug or URL: name, type, rating, review count, followers, active listing count, registration date and badges. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get an Avito seller (brand page) by slug or URL: name, type, rating, review count, followers, active listing count, registration date and badges. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -2011,7 +1951,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-craigslist-areas",
   "tag": "E-commerce & Marketplaces",
-  "description": "Directory of ~700 Craigslist regional sites with alias (the area value for searches), area code, hostname, country, region, coordinates, timezone and sub-areas. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Directory of ~700 Craigslist regional sites with alias (the area value for searches), area code, hostname, country, region, coordinates, timezone and sub-areas. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "properties": {
@@ -2027,7 +1967,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-craigslist-categories",
   "tag": "E-commerce & Marketplaces",
-  "description": "Every Craigslist posting category with its alias (the category value for searches), description and section. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Every Craigslist posting category with its alias (the category value for searches), description and section. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "properties": {
@@ -2054,7 +1994,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-craigslist-postings",
   "tag": "E-commerce & Marketplaces",
-  "description": "Full Craigslist posting by id or URL: title, price, body text/HTML, category attributes with matching search filters, decoded VIN spec for vehicles, hiring company for jobs, images, location and dates. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Full Craigslist posting by id or URL: title, price, body text/HTML, category attributes with matching search filters, decoded VIN spec for vehicles, hiring company for jobs, images, location and dates. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -2073,7 +2013,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-craigslist-postings-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search live Craigslist postings in any regional site by keyword, category, area/sub-area/postal/coordinates and 60+ vehicle, motorcycle, boat, housing, job, gig and event filters; returns title, price, date, location, images and category facets. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search live Craigslist postings in any regional site by keyword, category, area/sub-area/postal/coordinates and 60+ vehicle, motorcycle, boat, housing, job, gig and event filters; returns title, price, date, location, images and category facets. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -2659,7 +2599,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-craigslist-postings-seller",
   "tag": "E-commerce & Marketplaces",
-  "description": "All postings published by the seller of a given Craigslist posting (a dealer's, landlord's or shop's full inventory). 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "All postings published by the seller of a given Craigslist posting (a dealer's, landlord's or shop's full inventory). 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -2707,7 +2647,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-flipkart-product",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get full Flipkart product details by item id or product URL: title, brand, price, MRP, discount, images, color, rating, category, breadcrumbs, availability, condition and recent reviews. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get full Flipkart product details by item id or product URL: title, brand, price, MRP, discount, images, color, rating, category, breadcrumbs, availability, condition and recent reviews. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -2726,7 +2666,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-flipkart-product-reviews",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get customer reviews for a Flipkart product: rating, title, text, author, date, location, certified-buyer flag, helpful/downvote counts and photos. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Get customer reviews for a Flipkart product: rating, title, text, author, date, location, certified-buyer flag, helpful/downvote counts and photos. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -2758,7 +2698,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-flipkart-product-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search Flipkart products by keyword: id, title, brand, price, MRP, discount, image, key specs, rating and review counts. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search Flipkart products by keyword: id, title, brand, price, MRP, discount, image, key specs, rating and review counts. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -2790,7 +2730,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-flipkart-seller",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get the Flipkart seller offering a given product: name, rating, years on Flipkart, units sold, quality/speed scores, product/service quality ratings and description. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get the Flipkart seller offering a given product: name, rating, years on Flipkart, units sold, quality/speed scores, product/service quality ratings and description. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -2809,7 +2749,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-hepsiburada-categories",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get the Hepsiburada category tree for a category id or URL: the path from the top-level department down to the category, with its nested children (id, name, alias, level, url). Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get the Hepsiburada category tree for a category id or URL: the path from the top-level department down to the category, with its nested children (id, name, alias, level, url). Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -2828,7 +2768,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-hepsiburada-categories-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "List products in a Hepsiburada category with filters (brand, seller, color, price range, minimum rating, fast delivery, discounted, photo reviews, authorized sellers) and sorting. Returns id, name, brand, price, list price, discount, image, rating and seller. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "List products in a Hepsiburada category with filters (brand, seller, color, price range, minimum rating, fast delivery, discounted, photo reviews, authorized sellers) and sorting. Returns id, name, brand, price, list price, discount, image, rating and seller. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -2950,7 +2890,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-hepsiburada-merchants",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get a Hepsiburada merchant (store) by slug or store URL: id, name, alias, url and number of products. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get a Hepsiburada merchant (store) by slug or store URL: id, name, alias, url and number of products. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -2969,7 +2909,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-hepsiburada-merchants-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "List products sold by a Hepsiburada merchant with filters (brand, color, price range, minimum rating, fast delivery, discounted, photo reviews) and sorting. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "List products sold by a Hepsiburada merchant with filters (brand, color, price range, minimum rating, fast delivery, discounted, photo reviews) and sorting. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -3087,7 +3027,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-hepsiburada-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get full Hepsiburada product details by SKU, product group id or URL: name, brand, price, list price, discount, images, video, rating, stock, specs, variants, categories, the winning seller and other sellers. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get full Hepsiburada product details by SKU, product group id or URL: name, brand, price, list price, discount, images, video, rating, stock, specs, variants, categories, the winning seller and other sellers. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -3106,7 +3046,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-hepsiburada-products-reviews",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get customer reviews for a Hepsiburada product (aggregated across its variants): rating, text, author, date, verified purchase, helpful count, per-feature ratings, keywords and photos. Sort by most helpful or most recent. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Get customer reviews for a Hepsiburada product (aggregated across its variants): rating, text, author, date, verified purchase, helpful count, per-feature ratings, keywords and photos. Sort by most helpful or most recent. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -3145,7 +3085,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-hepsiburada-products-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search Hepsiburada products by keyword with filters (brand, seller, color, price range, minimum rating, fast delivery, discounted, photo reviews, authorized sellers) and sorting. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search Hepsiburada products by keyword with filters (brand, seller, color, price range, minimum rating, fast delivery, discounted, photo reviews, authorized sellers) and sorting. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -3267,7 +3207,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-hepsiburada-products-sellers",
   "tag": "E-commerce & Marketplaces",
-  "description": "List all sellers (merchants) offering a Hepsiburada product: seller id, name, price, list price, rating, city, shipping flags and which seller wins the buybox. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "List all sellers (merchants) offering a Hepsiburada product: seller id, name, price, list price, rating, city, shipping flags and which seller wins the buybox. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -3286,7 +3226,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-kleinanzeigen-categories",
   "tag": "E-commerce & Marketplaces",
-  "description": "Full Kleinanzeigen category tree: id, name, alias, URL and parent id for every department and subcategory. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Full Kleinanzeigen category tree: id, name, alias, URL and parent id for every department and subcategory. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "properties": {}
@@ -3297,7 +3237,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-kleinanzeigen-listings",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get one Kleinanzeigen ad by id or URL: price, description, location, attributes, images and seller. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get one Kleinanzeigen ad by id or URL: price, description, location, attributes, images and seller. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -3316,7 +3256,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-kleinanzeigen-listings-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search live Kleinanzeigen ads by keyword with category, price, condition, seller type, shipping and sort filters. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search live Kleinanzeigen ads by keyword with category, price, condition, seller type, shipping and sort filters. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -3420,7 +3360,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-kleinanzeigen-listings-similar",
   "tag": "E-commerce & Marketplaces",
-  "description": "Related ads Kleinanzeigen shows on an ad's page, by ad id or URL. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Related ads Kleinanzeigen shows on an ad's page, by ad id or URL. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -3452,7 +3392,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-kleinanzeigen-sellers",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get one Kleinanzeigen seller by user id or profile URL: type, active since, followers and badges. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get one Kleinanzeigen seller by user id or profile URL: type, active since, followers and badges. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -3471,7 +3411,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-kleinanzeigen-sellers-listings",
   "tag": "E-commerce & Marketplaces",
-  "description": "A seller's active Kleinanzeigen ads by user id or profile URL. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "A seller's active Kleinanzeigen ads by user id or profile URL. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -3503,7 +3443,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-leboncoin-categories",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get the leboncoin category tree (id, name, slug, parent and nested subcategories). With include_filters enabled, the first category also carries the full catalog of search filters and their enum values. 5 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Get the leboncoin category tree (id, name, slug, parent and nested subcategories). With include_filters enabled, the first category also carries the full catalog of search filters and their enum values. 5 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -3523,7 +3463,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-leboncoin-listings",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get a full leboncoin ad by ID (or listing URL): title, description, price (EUR), category, category attributes, images, location, publication and expiry dates, and seller. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get a full leboncoin ad by ID (or listing URL): title, description, price (EUR), category, category attributes, images, location, publication and expiry dates, and seller. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -3542,7 +3482,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-leboncoin-listings-similar",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get the 'annonces similaires' recommended for a leboncoin ad (by ID or URL): title, price, attributes, images, location and seller. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Get the 'annonces similaires' recommended for a leboncoin ad (by ID or URL): title, price, attributes, images, location and seller. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -3574,7 +3514,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-leboncoin-locations-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Resolve a French place name or postcode into leboncoin location objects: label, city, zipcode, department/region id and coordinates. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Resolve a French place name or postcode into leboncoin location objects: label, city, zipcode, department/region id and coordinates. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -3606,7 +3546,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-leboncoin-sellers",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get a leboncoin professional store by store ID, seller UUID or store URL: name, SIREN/SIRET, activity sector, description, opening hours, website, address, rating, services and team. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get a leboncoin professional store by store ID, seller UUID or store URL: name, SIREN/SIRET, activity sector, description, opening hours, website, address, rating, services and team. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -3625,7 +3565,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-leboncoin-sellers-reviews",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get the curated customer reviews leboncoin shows for a professional store (author, rating, text, date, source: Google Maps / Opinion System). 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Get the curated customer reviews leboncoin shows for a professional store (author, rating, text, date, source: Google Maps / Opinion System). 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -3657,7 +3597,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-leboncoin-sellers-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Browse leboncoin's professional-stores directory by activity sector: id, name, activity sector, city, department and region. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Browse leboncoin's professional-stores directory by activity sector: id, name, activity sector, city, department and region. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -3701,7 +3641,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-mercari-items",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get a Mercari (Japan) item by id or URL: title, description, price in JPY, status (on sale / sold out), photos, brand, category path, condition, shipping payer/method/origin/days, likes, comments, seller (name, reviews, star rating, verified) and item features. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get a Mercari (Japan) item by id or URL: title, description, price in JPY, status (on sale / sold out), photos, brand, category path, condition, shipping payer/method/origin/days, likes, comments, seller (name, reviews, star rating, verified) and item features. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -3720,7 +3660,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-mercari-items-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search Mercari (Japan) items by keyword with category, sort, status and price filters. Returns items with id, URL, name, price (JPY), status, thumbnail and photo. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search Mercari (Japan) items by keyword with category, sort, status and price filters. Returns items with id, URL, name, price (JPY), status, thumbnail and photo. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -3796,7 +3736,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-newegg-categories-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "Products in a Newegg category by category id or category page URL: price, rating, seller and stock, with sort. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Products in a Newegg category by category id or category page URL: price, rating, seller and stock, with sort. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -3839,7 +3779,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-newegg-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get one Newegg product by item number or URL: price, rating, specifications, images, offers price range and seller. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get one Newegg product by item number or URL: price, rating, specifications, images, offers price range and seller. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -3858,7 +3798,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-newegg-products-offers",
   "tag": "E-commerce & Marketplaces",
-  "description": "Every marketplace buying option for a Newegg product: seller, price, shipping, condition and ships-from. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Every marketplace buying option for a Newegg product: seller, price, shipping, condition and ships-from. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -3884,7 +3824,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-newegg-products-reviews",
   "tag": "E-commerce & Marketplaces",
-  "description": "Owner reviews for a Newegg product: rating, title, text, pros, cons, author, date and helpful votes. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Owner reviews for a Newegg product: rating, title, text, pros, cons, author, date and helpful votes. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -3916,7 +3856,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-newegg-products-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search Newegg products by keyword with sort: price, rating, seller and stock. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search Newegg products by keyword with sort: price, rating, seller and stock. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -3959,7 +3899,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-newegg-sellers",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get one Newegg marketplace seller store by store key or URL: rating, followers, badges, legal name and location. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get one Newegg marketplace seller store by store key or URL: rating, followers, badges, legal name and location. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -3978,7 +3918,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-newegg-sellers-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "A Newegg marketplace seller's products by store key or store URL. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "A Newegg marketplace seller's products by store key or store URL. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -4010,7 +3950,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-olx-categories",
   "tag": "E-commerce & Marketplaces",
-  "description": "Full category tree of an OLX marketplace: id, name, alias, parent id, depth, child ids, URL and live offer count. 5 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Full category tree of an OLX marketplace: id, name, alias, parent id, depth, child ids, URL and live offer count. 5 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -4053,7 +3993,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-olx-categories-filters",
   "tag": "E-commerce & Marketplaces",
-  "description": "Category-specific search filters of an OLX category (keys, types, allowed values and ranges) to use in offers search. 5 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Category-specific search filters of an OLX category (keys, types, allowed values and ranges) to use in offers search. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -4093,7 +4033,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-olx-offers",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get one OLX ad by id or URL: price, description, location with coordinates, photos, attributes and seller. 5 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Get one OLX ad by id or URL: price, description, location with coordinates, photos, attributes and seller. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -4126,7 +4066,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-olx-offers-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search live OLX ads by keyword with category, price, condition, seller type, location, delivery and sort. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search live OLX ads by keyword with category, price, condition, seller type, location, delivery and sort. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -4243,7 +4183,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-olx-regions",
   "tag": "E-commerce & Marketplaces",
-  "description": "OLX geography: top-level regions or the cities of one region, with ids and coordinates for offers search. 5 point per returned record. [E-commerce & Marketplaces]",
+  "description": "OLX geography: top-level regions or the cities of one region, with ids and coordinates for offers search. 5 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -4281,7 +4221,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-olx-users",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get an OLX seller profile by id, uuid or profile URL: account type, registration, last seen, response time and business details. 5 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Get an OLX seller profile by id, uuid or profile URL: account type, registration, last seen, response time and business details. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -4314,7 +4254,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-olx-users-offers",
   "tag": "E-commerce & Marketplaces",
-  "description": "A seller's active OLX offers by user id, uuid or profile URL, with category filter and sort. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "A seller's active OLX offers by user id, uuid or profile URL, with category filter and sort. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -4376,7 +4316,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-poshmark-items",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get one Poshmark listing by id or URL: price, brand, size, colors, category, photos, likes/comments, seller and the likers/comments shown on the page. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get one Poshmark listing by id or URL: price, brand, size, colors, category, photos, likes/comments, seller and the likers/comments shown on the page. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -4404,7 +4344,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-poshmark-items-comments",
   "tag": "E-commerce & Marketplaces",
-  "description": "Comments on a Poshmark listing (author, text, date), by listing id or URL. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Comments on a Poshmark listing (author, text, date), by listing id or URL. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -4439,7 +4379,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-poshmark-items-likes",
   "tag": "E-commerce & Marketplaces",
-  "description": "Users who liked a Poshmark listing (handle, name, avatar), by listing id or URL. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Users who liked a Poshmark listing (handle, name, avatar), by listing id or URL. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -4474,7 +4414,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-poshmark-items-related",
   "tag": "E-commerce & Marketplaces",
-  "description": "Listings Poshmark shows as related to a listing, by listing id or URL. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Listings Poshmark shows as related to a listing, by listing id or URL. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -4509,7 +4449,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-poshmark-items-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search live Poshmark listings by keyword with department, category, brand, size, color, price, condition, shipping, availability and sort filters. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search live Poshmark listings by keyword with department, category, brand, size, color, price, condition, shipping, availability and sort filters. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -4647,7 +4587,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-poshmark-users",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get a Poshmark seller's public closet profile by username or URL: bio, location, followers/following/listing counts, items sold and activity. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get a Poshmark seller's public closet profile by username or URL: bio, location, followers/following/listing counts, items sold and activity. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -4675,7 +4615,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-poshmark-users-followers",
   "tag": "E-commerce & Marketplaces",
-  "description": "Followers of a Poshmark closet (handle, name, avatar), by username or URL. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Followers of a Poshmark closet (handle, name, avatar), by username or URL. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -4715,7 +4655,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-poshmark-users-following",
   "tag": "E-commerce & Marketplaces",
-  "description": "Users a Poshmark closet follows (handle, name, avatar), by username or URL. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Users a Poshmark closet follows (handle, name, avatar), by username or URL. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -4755,7 +4695,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-poshmark-users-items",
   "tag": "E-commerce & Marketplaces",
-  "description": "Listings in a Poshmark closet by username or URL, with department, category, brand, size, color, price, condition, shipping, availability and sort filters. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Listings in a Poshmark closet by username or URL, with department, category, brand, size, color, price, condition, shipping, availability and sort filters. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -4896,7 +4836,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-poshmark-users-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search Poshmark closets by name or handle (username, name, avatar, home region). 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search Poshmark closets by name or handle (username, name, avatar, home region). 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -4936,7 +4876,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-rakuten-categories",
   "tag": "E-commerce & Marketplaces",
-  "description": "Rakuten Ichiba genre tree: the top-level genres, or one genre by id with its breadcrumb path and child genres (with item counts). Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Rakuten Ichiba genre tree: the top-level genres, or one genre by id with its breadcrumb path and child genres (with item counts). Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "properties": {
@@ -4953,7 +4893,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-rakuten-items",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get one Rakuten Ichiba item by shop_code/item_code or URL: price range, subscription price, points, shipping, images, rating, category, shop and SKU variants. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get one Rakuten Ichiba item by shop_code/item_code or URL: price range, subscription price, points, shipping, images, rating, category, shop and SKU variants. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -4972,7 +4912,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-rakuten-items-reviews",
   "tag": "E-commerce & Marketplaces",
-  "description": "Customer reviews of a Rakuten Ichiba item by shop_code/item_code or URL: rating, text, author, dates, helpful count, purpose tags, SKU, media and shop replies. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Customer reviews of a Rakuten Ichiba item by shop_code/item_code or URL: rating, text, author, dates, helpful count, purpose tags, SKU, media and shop replies. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -5004,7 +4944,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-rakuten-items-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search live Rakuten Ichiba items by keyword with sort, condition, price range and genre filters. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search live Rakuten Ichiba items by keyword with sort, condition, price range and genre filters. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -5071,7 +5011,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-rakuten-shops",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get one Rakuten Ichiba shop storefront by shop_code or URL: name, description, logo, cover, rating and review count. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get one Rakuten Ichiba shop storefront by shop_code or URL: name, description, logo, cover, rating and review count. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -5090,7 +5030,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-rakuten-shops-items",
   "tag": "E-commerce & Marketplaces",
-  "description": "The item catalog of a Rakuten Ichiba shop by shop_code or URL: title, price range, image, points, shipping, rating, category. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "The item catalog of a Rakuten Ichiba shop by shop_code or URL: title, price range, image, points, shipping, rating, category. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -5122,7 +5062,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-shopify-collections",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get one Shopify collection by store domain and handle: title, description, image, product count and timestamps. 5 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Get one Shopify collection by store domain and handle: title, description, image, product count and timestamps. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -5146,7 +5086,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-shopify-collections-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "Products of a Shopify collection with options, variants, prices and availability. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Products of a Shopify collection with options, variants, prices and availability. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -5182,7 +5122,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-shopify-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get one Shopify product by store domain and handle: brand, type, tags, images, options and all variants with price, SKU, barcode, availability and stock. 5 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Get one Shopify product by store domain and handle: brand, type, tags, images, options and all variants with price, SKU, barcode, availability and stock. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -5206,7 +5146,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-shopify-products-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "List all products of a Shopify store (not a keyword search) with variants, prices and availability. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "List all products of a Shopify store (not a keyword search) with variants, prices and availability. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -5237,7 +5177,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-target-categories-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "List products of a Target category by browse node id or category URL with a sort order. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "List products of a Target category by browse node id or category URL with a sort order. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -5280,7 +5220,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-target-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get one Target product by TCIN or URL: price, ratings breakdown, images, specifications, features, variants, dimensions and return policy. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get one Target product by TCIN or URL: price, ratings breakdown, images, specifications, features, variants, dimensions and return policy. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -5299,7 +5239,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-target-products-questions",
   "tag": "E-commerce & Marketplaces",
-  "description": "Customer questions and their answers for a Target product by TCIN or URL. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Customer questions and their answers for a Target product by TCIN or URL. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -5331,7 +5271,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-target-products-recommendations",
   "tag": "E-commerce & Marketplaces",
-  "description": "Related products Target shows on a product page: alternatives, guests also viewed, complementary, deals, top performing, new arrivals, similar. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Related products Target shows on a product page: alternatives, guests also viewed, complementary, deals, top performing, new arrivals, similar. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -5375,7 +5315,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-target-products-reviews",
   "tag": "E-commerce & Marketplaces",
-  "description": "Customer reviews of a Target product by TCIN or URL, newest first. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Customer reviews of a Target product by TCIN or URL, newest first. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -5407,7 +5347,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-target-products-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search live Target products by keyword with a sort order (relevance, featured, price, rating, bestselling, newest). 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search live Target products by keyword with a sort order (relevance, featured, price, rating, bestselling, newest). 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -5451,7 +5391,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-trendyol-categories",
   "tag": "E-commerce & Marketplaces",
-  "description": "Trendyol category tree: 10 departments with nested subcategories (id, name, alias, parent id, URL). Pass a category id or alias to get just that subtree. 5 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Trendyol category tree: 10 departments with nested subcategories (id, name, alias, parent id, URL). Pass a category id or alias to get just that subtree. 5 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -5467,7 +5407,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-trendyol-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get one Trendyol product by contentId or URL: price, brand, rating, attributes, variants, seller and other sellers. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get one Trendyol product by contentId or URL: price, brand, rating, attributes, variants, seller and other sellers. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -5486,7 +5426,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-trendyol-products-reviews",
   "tag": "E-commerce & Marketplaces",
-  "description": "Customer reviews for a Trendyol product by contentId or URL: rating, text, author, date, likes, seller and photos. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Customer reviews for a Trendyol product by contentId or URL: rating, text, author, date, likes, seller and photos. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -5518,7 +5458,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-trendyol-products-sellers",
   "tag": "E-commerce & Marketplaces",
-  "description": "All sellers offering a Trendyol product by contentId or URL, for price comparison: price, score, stock, free shipping and which offer is featured. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "All sellers offering a Trendyol product by contentId or URL, for price comparison: price, score, stock, free shipping and which offer is featured. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -5537,7 +5477,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-trendyol-sellers",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get one Trendyol seller (store) by id or store URL: name, city, score, product count, verified status and shipping/response metrics. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get one Trendyol seller (store) by id or store URL: name, city, score, product count, verified status and shipping/response metrics. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -5556,7 +5496,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-trendyol-sellers-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "A seller's storefront products on Trendyol by seller id or store URL: name, brand, price, rating, image. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "A seller's storefront products on Trendyol by seller id or store URL: name, brand, price, rating, image. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -5588,7 +5528,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-vinted-products-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search live Vinted items by keyword on any Vinted market, with category, brand, size, condition, color, material and price filters. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search live Vinted items by keyword on any Vinted market, with category, brand, size, condition, color, material and price filters. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -5681,7 +5621,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-vinted-users",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get a Vinted member profile by user id or member URL: location, reputation, feedback and item counts, followers, verification and bundle discounts. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get a Vinted member profile by user id or member URL: location, reputation, feedback and item counts, followers, verification and bundle discounts. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -5714,7 +5654,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-vinted-users-feedbacks",
   "tag": "E-commerce & Marketplaces",
-  "description": "Feedback (reviews) a Vinted member has received: text, rating, reviewer, the seller's reply and date. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Feedback (reviews) a Vinted member has received: text, rating, reviewer, the seller's reply and date. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -5760,7 +5700,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-vinted-users-items",
   "tag": "E-commerce & Marketplaces",
-  "description": "A Vinted member's current wardrobe: title-level data, prices, brand, size, condition, photos, favourites and reserved/closed/hidden flags. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "A Vinted member's current wardrobe: title-level data, prices, brand, size, condition, photos, favourites and reserved/closed/hidden flags. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -5806,7 +5746,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-wayfair-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get full Wayfair product details by SKU (or product URL): title, brand, price, list price, discount, rating with per-star breakdown, images, variants, verified status, availability and category. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get full Wayfair product details by SKU (or product URL): title, brand, price, list price, discount, rating with per-star breakdown, images, variants, verified status, availability and category. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -5825,7 +5765,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-wayfair-products-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search Wayfair products by keyword. Returns products with title, brand, price, list price, currency, discount, rating, review count and images. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search Wayfair products by keyword. Returns products with title, brand, price, list price, currency, discount, rating, review count and images. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -5857,7 +5797,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-wayfair-sellers",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get a Wayfair brand (seller) by id or brand page URL: name, description, logo image, alias and the brand's collections. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get a Wayfair brand (seller) by id or brand page URL: name, description, logo image, alias and the brand's collections. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -5876,7 +5816,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-yahoo-auctions-categories",
   "tag": "E-commerce & Marketplaces",
-  "description": "Yahoo! Auctions Japan category tree, one level at a time: pass a parent category id (0 for the top-level categories) to get its direct sub-categories (id, Japanese name, URL, parent id). 5 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Yahoo! Auctions Japan category tree, one level at a time: pass a parent category id (0 for the top-level categories) to get its direct sub-categories (id, Japanese name, URL, parent id). 5 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -5907,7 +5847,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-yahoo-auctions-items",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get one live or completed Yahoo! Auctions Japan listing by auction id or URL: price, bids, condition, category, description, photos, shipping, payment methods, highest bidders and seller. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get one live or completed Yahoo! Auctions Japan listing by auction id or URL: price, bids, condition, category, description, photos, shipping, payment methods, highest bidders and seller. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -5926,7 +5866,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-yahoo-auctions-items-closed-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search completed Yahoo! Auctions Japan auctions by keyword and see the price each item actually sold for, with sold-price, condition, region, seller-type and sort filters. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search completed Yahoo! Auctions Japan auctions by keyword and see the price each item actually sold for, with sold-price, condition, region, seller-type and sort filters. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -6079,7 +6019,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-yahoo-auctions-items-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search live Yahoo! Auctions Japan listings by keyword and/or category with price, buy-it-now, condition, region, seller, listing-type, appraisal, shipping filters and sort. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search live Yahoo! Auctions Japan listings by keyword and/or category with price, buy-it-now, condition, region, seller, listing-type, appraisal, shipping filters and sort. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -6278,7 +6218,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-yahoo-auctions-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get a Yahoo! Auctions Japan catalog product by id or URL: lowest current and buy-it-now price and the live auctions matched to that product. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get a Yahoo! Auctions Japan catalog product by id or URL: lowest current and buy-it-now price and the live auctions matched to that product. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -6297,7 +6237,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-yahoo-auctions-sellers",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get a Yahoo! Auctions Japan seller profile by seller id or URL: display name, rating count, positive-feedback percentage, store/verification badges and profile message. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get a Yahoo! Auctions Japan seller profile by seller id or URL: display name, rating count, positive-feedback percentage, store/verification badges and profile message. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -6316,7 +6256,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-yahoo-auctions-sellers-items",
   "tag": "E-commerce & Marketplaces",
-  "description": "A seller's live Yahoo! Auctions Japan listings by seller id or URL, with keyword, category, price, condition, region and sort filters. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "A seller's live Yahoo! Auctions Japan listings by seller id or URL, with keyword, category, price, condition, region and sort filters. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -6468,7 +6408,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-yahoo-auctions-sellers-reviews",
   "tag": "E-commerce & Marketplaces",
-  "description": "Feedback comments left for a Yahoo! Auctions Japan seller: verdict, author, auction, comment text and relative date; filter by role and verdict. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Feedback comments left for a Yahoo! Auctions Japan seller: verdict, author, auction, comment text and relative date; filter by role and verdict. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -6517,7 +6457,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-yahoo-auctions-sellers-reviews-summary",
   "tag": "E-commerce & Marketplaces",
-  "description": "Aggregated Yahoo! Auctions Japan feedback score of a seller: total and positive percentage as seller/buyer plus positive/neutral/negative counts over the last week, month, 6 months, 100 and 1000 transactions. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Aggregated Yahoo! Auctions Japan feedback score of a seller: total and positive percentage as seller/buyer plus positive/neutral/negative counts over the last week, month, 6 months, 100 and 1000 transactions. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -6536,7 +6476,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-yandexmarket-categories-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "List Yandex Market products in a catalog category by id or URL, with sort, price, condition, payment, rating and brand filters. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "List Yandex Market products in a catalog category by id or URL, with sort, price, condition, payment, rating and brand filters. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -6613,7 +6553,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-yandexmarket-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get one Yandex Market product by id or URL: title, brand, price, rating, category breadcrumbs, seller and spec table. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get one Yandex Market product by id or URL: title, brand, price, rating, category breadcrumbs, seller and spec table. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -6632,7 +6572,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-yandexmarket-products-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search Yandex Market products by keyword with sort, price, condition, payment, rating, brand and seller filters. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search Yandex Market products by keyword with sort, price, condition, payment, rating, brand and seller filters. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -6713,7 +6653,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-zalando-brands-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get products of a Zalando brand by brand alias or brand page URL: name, brand, price, list price, discount, currency, image, silhouette, gender, flags and sizes. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Get products of a Zalando brand by brand alias or brand page URL: name, brand, price, list price, discount, currency, image, silhouette, gender, flags and sizes. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -6745,7 +6685,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-zalando-products",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get full Zalando product details by product URL: name, brand, colour, price, list price, discount, 30-day lowest price, images, description, category, stock, sizes with stock levels, attributes (material, care, details) and colour variants. Flat 5 points per successful run. [E-commerce & Marketplaces]",
+  "description": "Get full Zalando product details by product URL: name, brand, colour, price, list price, discount, 30-day lowest price, images, description, category, stock, sizes with stock levels, attributes (material, care, details) and colour variants. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -6764,7 +6704,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-zalando-products-related",
   "tag": "E-commerce & Marketplaces",
-  "description": "Get related products from a Zalando product page (similar, same brand, cross-sell and sponsored recommendations): name, brand, price, discount, image, stock and reason. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Get related products from a Zalando product page (similar, same brand, cross-sell and sponsored recommendations): name, brand, price, discount, image, stock and reason. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -6796,7 +6736,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-zalando-products-search",
   "tag": "E-commerce & Marketplaces",
-  "description": "Search Zalando products by keyword with optional brand, size, colour, price range and sort filters. Returns name, brand, colour, gender, price, list price, 30-day lowest price, discount, image and sponsored flag. 1 point per returned record. [E-commerce & Marketplaces]",
+  "description": "Search Zalando products by keyword with optional brand, size, colour, price range and sort filters. Returns name, brand, colour, gender, price, list price, 30-day lowest price, discount, image and sponsored flag. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -6860,7 +6800,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-au-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Australia registry (ASIC / ABN) by registration number or registry URL: name, status, registration date, address and legal form. Flat 10 points per successful run. [Company Registries]",
+  "description": "Get one company from the Australia registry (ASIC / ABN) by registration number or registry URL: name, status, registration date, address and legal form. Flat 10 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -6879,7 +6819,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-au-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Australia company registry (ASIC / ABN) by company name: name, registration number, status, address and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Australia company registry (ASIC / ABN) by company name: name, registration number, status, address and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -6918,7 +6858,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-br-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Brazil registry (CNPJ / Receita Federal) by registration number or registry URL: name, status, registration date, address and legal form. Flat 5 points per successful run. [Company Registries]",
+  "description": "Get one company from the Brazil registry (CNPJ / Receita Federal) by registration number or registry URL: name, status, registration date, address and legal form. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -6937,7 +6877,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-dk-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Denmark registry (CVR) by registration number or registry URL: name, status, registration date, address and legal form. Flat 5 points per successful run. [Company Registries]",
+  "description": "Get one company from the Denmark registry (CVR) by registration number or registry URL: name, status, registration date, address and legal form. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -6956,7 +6896,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-dk-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Denmark company registry (CVR) by company name: name, registration number, status, address and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Denmark company registry (CVR) by company name: name, registration number, status, address and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -6995,7 +6935,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ee-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Estonia registry (e-Business Register) by registration number or registry URL: name, status, registration date, address and legal form. Flat 5 points per successful run. [Company Registries]",
+  "description": "Get one company from the Estonia registry (e-Business Register) by registration number or registry URL: name, status, registration date, address and legal form. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -7014,7 +6954,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ee-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Estonia company registry (e-Business Register) by company name: name, registration number, status, address and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Estonia company registry (e-Business Register) by company name: name, registration number, status, address and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7053,7 +6993,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-fr-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the France registry (RNE / INPI) by registration number or registry URL: name, status, registration date, address and legal form. Flat 30 points per successful run. [Company Registries]",
+  "description": "Get one company from the France registry (RNE / INPI) by registration number or registry URL: name, status, registration date, address and legal form. Flat 30 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -7072,7 +7012,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-fr-companies-search",
   "tag": "Company Registries",
-  "description": "Search the France company registry (RNE / INPI) by company name: name, registration number, status, address and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the France company registry (RNE / INPI) by company name: name, registration number, status, address and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7111,7 +7051,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-nz-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the New Zealand registry (Companies Register) by registration number or registry URL: name, status, registration date, address and legal form. Flat 5 points per successful run. [Company Registries]",
+  "description": "Get one company from the New Zealand registry (Companies Register) by registration number or registry URL: name, status, registration date, address and legal form. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -7130,7 +7070,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-nz-companies-search",
   "tag": "Company Registries",
-  "description": "Search the New Zealand company registry (Companies Register) by company name: name, registration number, status, address and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the New Zealand company registry (Companies Register) by company name: name, registration number, status, address and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7169,7 +7109,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-uk-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the United Kingdom registry (Companies House) by registration number or registry URL: name, status, registration date, address and legal form. Flat 30 points per successful run. [Company Registries]",
+  "description": "Get one company from the United Kingdom registry (Companies House) by registration number or registry URL: name, status, registration date, address and legal form. Flat 30 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -7188,7 +7128,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-uk-companies-search",
   "tag": "Company Registries",
-  "description": "Search the United Kingdom company registry (Companies House) by company name: name, registration number, status, address and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the United Kingdom company registry (Companies House) by company name: name, registration number, status, address and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7227,7 +7167,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-be-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Belgium registry (KBO/BCE) by enterprise number or registry URL: name, status, start date, address, legal form, activities, directors, contact details and establishment units. 10 point per returned record. [Company Registries]",
+  "description": "Get one company from the Belgium registry (KBO/BCE) by enterprise number or registry URL: name, status, start date, address, legal form, activities, directors, contact details and establishment units. 10 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7246,7 +7186,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-be-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Belgium company registry (KBO/BCE) by company name: name, enterprise number, status, address and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Belgium company registry (KBO/BCE) by company name: name, enterprise number, status, address and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7285,7 +7225,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-br-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Brazil company registry (CNPJ / Receita Federal data) by company name: name, CNPJ, status and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Brazil company registry (CNPJ / Receita Federal data) by company name: name, CNPJ, status and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7324,7 +7264,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-no-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Norway registry (Brønnøysundregistrene, Enhetsregisteret) by organisation number or registry URL: name, status, registration date, address, legal form, industry codes and board/signatory roles, share capital, employees, previous names, auditor, liens and related units. 5 point per returned record. [Company Registries]",
+  "description": "Get one company from the Norway registry (Brønnøysundregistrene, Enhetsregisteret) by organisation number or registry URL: name, status, registration date, address, legal form, industry codes and board/signatory roles, share capital, employees, previous names, auditor, liens and related units. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7343,7 +7283,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-no-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Norway company registry (Brønnøysundregistrene, Enhetsregisteret) by company name: name, organisation number, postal code and place, and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Norway company registry (Brønnøysundregistrene, Enhetsregisteret) by company name: name, organisation number, postal code and place, and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7374,7 +7314,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-co-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Colombia registry (RUES, Registro Mercantil) by NIT or registry URL: name, status, registration date, address, legal form, economic activity, legal representation and establishments. Flat 5 points per successful run. [Company Registries]",
+  "description": "Get one company from the Colombia registry (RUES, Registro Mercantil) by NIT or registry URL: name, status, registration date, address, legal form, economic activity, legal representation and establishments. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -7393,7 +7333,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-co-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Colombia company registry (RUES, Registro Mercantil) by name: name, NIT, status, chamber of commerce, category and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Colombia company registry (RUES, Registro Mercantil) by name: name, NIT, status, chamber of commerce, category and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7432,7 +7372,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-cz-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Czech Republic commercial register (Justice.cz) by registration number (IČO, 8 digits) or registry URL: name, status, registration date, address and court file number. Also returns legal form, business scope, share capital, officers, shareholders and branches. 5 point per returned record. [Company Registries]",
+  "description": "Get one company from the Czech Republic commercial register (Justice.cz) by registration number (IČO, 8 digits) or registry URL: name, status, registration date, address and court file number. Also returns legal form, business scope, share capital, officers, shareholders and branches. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7451,7 +7391,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-cz-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Czech Republic commercial register (Justice.cz) by company name: name, registration number (IČO), status, address and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Czech Republic commercial register (Justice.cz) by company name: name, registration number (IČO), status, address and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7490,7 +7430,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-lv-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Latvia registry (Register of Enterprises) by registration number or registry URL: name, status, registration date, address, legal form, capital, officers, shareholders and beneficial owners. Flat 5 points per successful run. [Company Registries]",
+  "description": "Get one company from the Latvia registry (Register of Enterprises) by registration number or registry URL: name, status, registration date, address, legal form, capital, officers, shareholders and beneficial owners. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -7509,7 +7449,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-lv-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Latvia company registry (Register of Enterprises) by company name or registration number: name, registration number, status, address and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Latvia company registry (Register of Enterprises) by company name or registration number: name, registration number, status, address and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7548,7 +7488,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-pl-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Poland registry (KRS) by KRS number or registry link: name, status, registration date, address, legal form, NIP/REGON, representatives, capital, shareholders, branches, history. Flat 5 points per successful run. [Company Registries]",
+  "description": "Get one company from the Poland registry (KRS) by KRS number or registry link: name, status, registration date, address, legal form, NIP/REGON, representatives, capital, shareholders, branches, history. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -7567,7 +7507,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-pl-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Poland company registry (KRS) by company name: name, KRS number, city, register and flags. 1 point per returned record. [Company Registries]",
+  "description": "Search the Poland company registry (KRS) by company name: name, KRS number, city, register and flags. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7598,7 +7538,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-sk-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Slovakia Commercial Register (Obchodný register SR) by IČO or registry URL: name, status, registration date, address, legal form, activities and board, with full history. 10 point per returned record. [Company Registries]",
+  "description": "Get one company from the Slovakia Commercial Register (Obchodný register SR) by IČO or registry URL: name, status, registration date, address, legal form, activities and board, with full history. 10 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7617,7 +7557,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-sk-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Slovakia Commercial Register (Obchodný register SR) by the beginning of the business name: name and link to the registry extract. 1 point per returned record. [Company Registries]",
+  "description": "Search the Slovakia Commercial Register (Obchodný register SR) by the beginning of the business name: name and link to the registry extract. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7648,7 +7588,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-at-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Austria registry (Firmenbuch) by registration number (FN) or registry URL: name, status, legal form, address, previous names and the paid extracts offered. Flat 5 points per successful run. [Company Registries]",
+  "description": "Get one company from the Austria registry (Firmenbuch) by registration number (FN) or registry URL: name, status, legal form, address, previous names and the paid extracts offered. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -7667,7 +7607,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-at-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Austria company registry (Firmenbuch) by company name or FN: name, registration number, status, seat and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Austria company registry (Firmenbuch) by company name or FN: name, registration number, status, seat and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7706,7 +7646,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-fi-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Finland registry (PRH / YTJ) by Business ID (Y-tunnus) or registry URL: name, status, registration date, address, legal form, names, registrations, tax debt status and Business ID history. Flat 5 points per successful run. [Company Registries]",
+  "description": "Get one company from the Finland registry (PRH / YTJ) by Business ID (Y-tunnus) or registry URL: name, status, registration date, address, legal form, names, registrations, tax debt status and Business ID history. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -7725,7 +7665,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-fi-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Finland company registry (PRH / YTJ) by company name: name, Business ID, status, municipality and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Finland company registry (PRH / YTJ) by company name: name, Business ID, status, municipality and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7764,7 +7704,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-kr-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the South Korea registry (DART) by DART corp code, stock code or registry link: name, English name, market, registration numbers, address, industry, established date, representatives, name history and representative history. 15 point per returned record. [Company Registries]",
+  "description": "Get one company from the South Korea registry (DART) by DART corp code, stock code or registry link: name, English name, market, registration numbers, address, industry, established date, representatives, name history and representative history. 15 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7783,7 +7723,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-kr-companies-search",
   "tag": "Company Registries",
-  "description": "Search the South Korea company registry (DART) by company name or stock code: name, DART corp code, market, stock code and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the South Korea company registry (DART) by company name or stock code: name, DART corp code, market, stock code and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7814,7 +7754,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-nl-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Netherlands registry (KVK Handelsregister) by KVK number or registry URL: name, status, registration date, address, legal form and establishments. Flat 5 points per successful run. [Company Registries]",
+  "description": "Get one company from the Netherlands registry (KVK Handelsregister) by KVK number or registry URL: name, status, registration date, address, legal form and establishments. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -7833,7 +7773,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-nl-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Netherlands company registry (KVK Handelsregister) by company name: name, registration number, status, address and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Netherlands company registry (KVK Handelsregister) by company name: name, registration number, status, address and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7872,7 +7812,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-bg-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Bulgaria registry (Commercial Register) by UIC (ЕИК) or registry link: name, status, first registration date, address and contacts, legal form, activity, capital and shares, representatives and board, procuracy, trade-undertaking transfers, mergers, predecessors/successors, liquidation, beneficial owners (NPLE), registrar instructions and court case files. 15 point per returned record. [Company Registries]",
+  "description": "Get one company from the Bulgaria registry (Commercial Register) by UIC (ЕИК) or registry link: name, status, first registration date, address and contacts, legal form, activity, capital and shares, representatives and board, procuracy, trade-undertaking transfers, mergers, predecessors/successors, liquidation, beneficial owners (NPLE), registrar instructions and court case files. 15 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7891,7 +7831,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-bg-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Bulgaria company registry (Commercial Register) by company name or UIC: name, UIC (ЕИК), legal form and card link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Bulgaria company registry (Commercial Register) by company name or UIC: name, UIC (ЕИК), legal form and card link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7922,7 +7862,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-cy-companies",
   "tag": "Company Registries",
-  "description": "Get one organisation from the Cyprus registry (Registrar of Companies, DRCOR) by registration number (HE, EE, AE, S, BN prefix) or registry link: name, status, registration date, registered office, type, previous names, directors / secretaries / partners, annual fees paid and counters. 10 point per returned record. [Company Registries]",
+  "description": "Get one organisation from the Cyprus registry (Registrar of Companies, DRCOR) by registration number (HE, EE, AE, S, BN prefix) or registry link: name, status, registration date, registered office, type, previous names, directors / secretaries / partners, annual fees paid and counters. 10 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7941,7 +7881,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-cy-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Cyprus company registry (Registrar of Companies, DRCOR) by name: name, registration number, type, status and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Cyprus company registry (Registrar of Companies, DRCOR) by name: name, registration number, type, status and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7980,7 +7920,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-hr-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Croatia registry (Sudski registar) by MBS, OIB or registry link: name, status, registration date, address, legal form, capital, activities, members, supervisory board, representatives, legal relations and the list of filed financial reports. 5 point per returned record. [Company Registries]",
+  "description": "Get one company from the Croatia registry (Sudski registar) by MBS, OIB or registry link: name, status, registration date, address, legal form, capital, activities, members, supervisory board, representatives, legal relations and the list of filed financial reports. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -7999,7 +7939,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-hr-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Croatia company registry (Sudski registar) by company name: name, MBS, OIB, status, address, court and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Croatia company registry (Sudski registar) by company name: name, MBS, OIB, status, address, court and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8038,7 +7978,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-lu-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Luxembourg registry (LBR / RCS) by RCS number or registry link: name, status (radiée / en faillite), registration and deletion date, address, legal form, trade names, NACE code, and EUID. 5 point per returned record. [Company Registries]",
+  "description": "Get one company from the Luxembourg registry (LBR / RCS) by RCS number or registry link: name, status (radiée / en faillite), registration and deletion date, address, legal form, trade names, NACE code, and EUID. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8057,7 +7997,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-lu-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Luxembourg company registry (LBR / RCS) by company name or RCS number: name, RCS number, status (radiée / en faillite) and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Luxembourg company registry (LBR / RCS) by company name or RCS number: name, RCS number, status (radiée / en faillite) and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8096,7 +8036,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-si-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Slovenia registry (AJPES PRS) by registration number (matična številka) or registry link: name, short name, status (active/deleted), address, tax and VAT number, number of business units and the list of those units. 10 point per returned record. [Company Registries]",
+  "description": "Get one company from the Slovenia registry (AJPES PRS) by registration number (matična številka) or registry link: name, short name, status (active/deleted), address, tax and VAT number, number of business units and the list of those units. 10 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8115,7 +8055,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-si-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Slovenia company registry (AJPES PRS) by company name: name, short name, registration number (matična številka), status (active/deleted), address, tax/VAT number and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Slovenia company registry (AJPES PRS) by company name: name, short name, registration number (matična številka), status (active/deleted), address, tax/VAT number and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8155,7 +8095,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-tw-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Taiwan registry (MOEA) by 統一編號 or registry link: name, status, registration date, address, company type, capital and shares, representative, business scope, directors, managers, branches, factories, warehouses, stock listing, trademarks and change history. 15 point per returned record. [Company Registries]",
+  "description": "Get one company from the Taiwan registry (MOEA) by 統一編號 or registry link: name, status, registration date, address, company type, capital and shares, representative, business scope, directors, managers, branches, factories, warehouses, stock listing, trademarks and change history. 15 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8174,7 +8114,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-tw-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Taiwan company registry (MOEA) by company name or 統一編號: name, registration number, status, address, registration authority and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Taiwan company registry (MOEA) by company name or 統一編號: name, registration number, status, address, registration authority and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8213,7 +8153,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-bg-company-filings",
   "tag": "Company Registries",
-  "description": "List the announced acts of a Bulgaria company (Commercial Register) by UIC (ЕИК) or registry URL, newest first: announcement date, act type, title and document link (annual reports, notices, reports, current articles). 1 point per returned record. [Company Registries]",
+  "description": "List the announced acts of a Bulgaria company (Commercial Register) by UIC (ЕИК) or registry URL, newest first: announcement date, act type, title and document link (annual reports, notices, reports, current articles). 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8244,7 +8184,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-cy-company-filings",
   "tag": "Company Registries",
-  "description": "List the filings of one Cyprus organisation (Registrar of Companies, DRCOR) by registration number or registry link: file documents, charges and mortgages, translations, annual returns (HE32) or pending services, with form, date and page number. 1 point per returned record. [Company Registries]",
+  "description": "List the filings of one Cyprus organisation (Registrar of Companies, DRCOR) by registration number or registry link: file documents, charges and mortgages, translations, annual returns (HE32) or pending services, with form, date and page number. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8286,7 +8226,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-cz-company-filings",
   "tag": "Company Registries",
-  "description": "List the documents filed in the Czech Republic Collection of Documents (Sbírka listin, Justice.cz) for one company, by IČO or registry URL, newest first: document number, type, description, period, filing dates, pages and link. 1 point per returned record. [Company Registries]",
+  "description": "List the documents filed in the Czech Republic Collection of Documents (Sbírka listin, Justice.cz) for one company, by IČO or registry URL, newest first: document number, type, description, period, filing dates, pages and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8317,7 +8257,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-hr-company-filings",
   "tag": "Company Registries",
-  "description": "List the announcements (Objave) or the document collection (Zbirka isprava) of one company in the Croatia registry (Sudski registar), newest first: date, type, topic, case number and file link. 1 point per returned record. [Company Registries]",
+  "description": "List the announcements (Objave) or the document collection (Zbirka isprava) of one company in the Croatia registry (Sudski registar), newest first: date, type, topic, case number and file link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8356,7 +8296,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-kr-company-filings",
   "tag": "Company Registries",
-  "description": "List the filings of one South Korea company (DART) by DART corp code, stock code or registry link, newest first: report id, report name, filer, filing date, correction flag, remarks and link. 1 point per returned record. [Company Registries]",
+  "description": "List the filings of one South Korea company (DART) by DART corp code, stock code or registry link, newest first: report id, report name, filer, filing date, correction flag, remarks and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8387,7 +8327,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-lu-company-filings",
   "tag": "Company Registries",
-  "description": "List the RESA publications of one Luxembourg company (LBR / RCS), newest first: publication number, date, type, details and consult mode. 1 point per returned record. [Company Registries]",
+  "description": "List the RESA publications of one Luxembourg company (LBR / RCS), newest first: publication number, date, type, details and consult mode. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8418,7 +8358,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-lv-company-filings",
   "tag": "Company Registries",
-  "description": "List the filed annual reports of a Latvia company (Register of Enterprises) by registration number or registry URL, newest first: financial year, type and link. 1 point per returned record. [Company Registries]",
+  "description": "List the filed annual reports of a Latvia company (Register of Enterprises) by registration number or registry URL, newest first: financial year, type and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8449,7 +8389,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-no-company-filings",
   "tag": "Company Registries",
-  "description": "List the registry announcements (Kunngjøringer) of a Norway company (Brønnøysundregistrene) by organisation number or registry URL, newest first: date, announcement type and link. 1 point per returned record. [Company Registries]",
+  "description": "List the registry announcements (Kunngjøringer) of a Norway company (Brønnøysundregistrene) by organisation number or registry URL, newest first: date, announcement type and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8480,7 +8420,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-pl-company-filings",
   "tag": "Company Registries",
-  "description": "List the filed financial documents (annual and consolidated statements, auditor opinions, approval resolutions, management reports) and register entries of a Poland company (KRS) by KRS number or registry link, newest first: date, type, period and entry details. 1 point per returned record. [Company Registries]",
+  "description": "List the filed financial documents (annual and consolidated statements, auditor opinions, approval resolutions, management reports) and register entries of a Poland company (KRS) by KRS number or registry link, newest first: date, type, period and entry details. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8511,7 +8451,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-dk-company-filings",
   "tag": "Company Registries",
-  "description": "Annual reports, announcements and registrations of one Danish company (CVR): date, type, description and document links. 1 point per returned record. [Company Registries]",
+  "description": "Annual reports, announcements and registrations of one Danish company (CVR): date, type, description and document links. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8542,7 +8482,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ee-company-documents",
   "tag": "Company Registries",
-  "description": "Annual reports and documents of one Estonian company (e-Business Register): date, type, title and download links. 1 point per returned record. [Company Registries]",
+  "description": "Annual reports and documents of one Estonian company (e-Business Register): date, type, title and download links. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8573,7 +8513,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-nz-company-documents",
   "tag": "Company Registries",
-  "description": "Documents filed by one New Zealand company (Companies Register): date, type and file links. 1 point per returned record. [Company Registries]",
+  "description": "Documents filed by one New Zealand company (Companies Register): date, type and file links. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8604,7 +8544,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ro-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Romania registry data (Ministry of Finance / ONRC) by CUI (CIF): name, status and registration date, address, trade register number, authorization act, phone/fax, tax registrations (profit tax, VAT, social contributions, ...) and the latest filed financial indicators (assets, debts, equity, turnover, profit, employees). 15 point per returned record. [Company Registries]",
+  "description": "Get one company from the Romania registry data (Ministry of Finance / ONRC) by CUI (CIF): name, status and registration date, address, trade register number, authorization act, phone/fax, tax registrations (profit tax, VAT, social contributions, ...) and the latest filed financial indicators (assets, debts, equity, turnover, profit, employees). 15 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8623,7 +8563,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ro-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Romania company registry (Ministry of Finance / ONRC data) by company name: name and CUI. Bucharest by default, add \"@ cluj\" (county name or code) to the keyword to search another county. All words must appear in the name. 1 point per returned record. [Company Registries]",
+  "description": "Search the Romania company registry (Ministry of Finance / ONRC data) by company name: name and CUI. Bucharest by default, add \"@ cluj\" (county name or code) to the keyword to search another county. All words must appear in the name. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8654,7 +8594,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-uk-company-filings",
   "tag": "Company Registries",
-  "description": "Filing history of one UK company (Companies House): date, type, description and document link. 1 point per returned record. [Company Registries]",
+  "description": "Filing history of one UK company (Companies House): date, type, description and document link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8685,7 +8625,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-es-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Spain registry (Registro Mercantil, Registradores de España open-data directory) by NIF/CIF or registry link: name, status (Vigente / Liquidada / Concurso), address, legal form, registry office and sheet number, IRUS and EUID identifiers, CNAE/NACE activity, website, special situation, administrators and officers with their roles, and other registry entries under the same NIF such as branches. 10 point per returned record. [Company Registries]",
+  "description": "Get one company from the Spain registry (Registro Mercantil, Registradores de España open-data directory) by NIF/CIF or registry link: name, status (Vigente / Liquidada / Concurso), address, legal form, registry office and sheet number, IRUS and EUID identifiers, CNAE/NACE activity, website, special situation, administrators and officers with their roles, and other registry entries under the same NIF such as branches. 10 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8704,7 +8644,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-es-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Spain company registry (Registro Mercantil, Registradores de España open-data directory) by company name, brand or NIF: name, NIF/CIF, status, address, legal form, registry office, sheet number, EUID, CNAE activity and link. 2 point per returned record. [Company Registries]",
+  "description": "Search the Spain company registry (Registro Mercantil, Registradores de España open-data directory) by company name, brand or NIF: name, NIF/CIF, status, address, legal form, registry office, sheet number, EUID, CNAE activity and link. 2 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8743,7 +8683,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-pt-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Portugal registry (Registo Comercial publications portal) by NIF/NIPC or registry link: name, legal form, registered seat (street, postal code, locality, parish, municipality, district), number of publications and the newest publication. 15 point per returned record. [Company Registries]",
+  "description": "Get one company from the Portugal registry (Registo Comercial publications portal) by NIF/NIPC or registry link: name, legal form, registered seat (street, postal code, locality, parish, municipality, district), number of publications and the newest publication. 15 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8762,7 +8702,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-pt-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Portugal company registry (Registo Comercial publications portal) by entity name: name, NIF/NIPC, municipality and the date and type of the newest publication. 2 point per returned record. [Company Registries]",
+  "description": "Search the Portugal company registry (Registo Comercial publications portal) by entity name: name, NIF/NIPC, municipality and the date and type of the newest publication. 2 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8793,7 +8733,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-pt-company-filings",
   "tag": "Company Registries",
-  "description": "List the publications of a Portugal company (Registo Comercial publications portal) by NIF/NIPC or registry link, newest first: date, act type (registry acts, accounts deposits, notices, convocations), municipality and whether a text / attachment exists. 2 point per returned record. [Company Registries]",
+  "description": "List the publications of a Portugal company (Registo Comercial publications portal) by NIF/NIPC or registry link, newest first: date, act type (registry acts, accounts deposits, notices, convocations), municipality and whether a text / attachment exists. 2 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8824,7 +8764,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-se-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Sweden registry (Bolagsverket) by organisation number or registry link: name, status history, registration date, address, legal form, municipality and county, special and foreign-language business names. 5 point per returned record. [Company Registries]",
+  "description": "Get one company from the Sweden registry (Bolagsverket) by organisation number or registry link: name, status history, registration date, address, legal form, municipality and county, special and foreign-language business names. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8843,7 +8783,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-se-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Sweden company registry (Bolagsverket) by company name or organisation number: name, organisation number, status, city, legal form and card link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Sweden company registry (Bolagsverket) by company name or organisation number: name, organisation number, status, city, legal form and card link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8882,7 +8822,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-se-company-filings",
   "tag": "Company Registries",
-  "description": "List the most recent registry cases of a Sweden company (Bolagsverket) by organisation number or registry URL, newest first: case number, type (annual report, interim report, register update...), status, arrival and registration dates, financial period. 1 point per returned record. [Company Registries]",
+  "description": "List the most recent registry cases of a Sweden company (Bolagsverket) by organisation number or registry URL, newest first: case number, type (annual report, interim report, register update...), status, arrival and registration dates, financial period. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8913,7 +8853,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ar-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Argentina registry of legal entities (Registro Nacional de Sociedades, IGJ) by CUIT or registry link: name, company type, contract date, legal and fiscal address, activities and last update. 5 point per returned record. [Company Registries]",
+  "description": "Get one company from the Argentina registry of legal entities (Registro Nacional de Sociedades, IGJ) by CUIT or registry link: name, company type, contract date, legal and fiscal address, activities and last update. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8932,7 +8872,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ar-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Argentina registry of legal entities (Registro Nacional de Sociedades, IGJ) by company name or CUIT: name, CUIT, company type, address, main activity and link. 1 point per returned record. [Company Registries]",
+  "description": "Search the Argentina registry of legal entities (Registro Nacional de Sociedades, IGJ) by company name or CUIT: name, CUIT, company type, address, main activity and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8971,7 +8911,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ca-companies",
   "tag": "Company Registries",
-  "description": "Get one federal corporation from the Corporations Canada registry by corporation number or registry link: name, status, incorporation date, registered office address, governing legislation, directors, individuals with significant control, annual filings and name history. 5 point per returned record. [Company Registries]",
+  "description": "Get one federal corporation from the Corporations Canada registry by corporation number or registry link: name, status, incorporation date, registered office address, governing legislation, directors, individuals with significant control, annual filings and name history. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -8990,7 +8930,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ca-companies-search",
   "tag": "Company Registries",
-  "description": "Search federal corporations in the Corporations Canada registry by name, corporation number or business number: name, corporation number, status, business number and link. 1 point per returned record. [Company Registries]",
+  "description": "Search federal corporations in the Corporations Canada registry by name, corporation number or business number: name, corporation number, status, business number and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9029,7 +8969,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ca-company-filings",
   "tag": "Company Registries",
-  "description": "Certificates and filings of one federal corporation in the Corporations Canada registry: date, type and amendment details. 1 point per returned record. [Company Registries]",
+  "description": "Certificates and filings of one federal corporation in the Corporations Canada registry: date, type and amendment details. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9060,7 +9000,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ec-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Ecuador registry (Superintendencia de Compañías) by expediente number or RUC: expediente, RUC and registered name. 5 point per returned record. [Company Registries]",
+  "description": "Get one company from the Ecuador registry (Superintendencia de Compañías) by expediente number or RUC: expediente, RUC and registered name. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9079,7 +9019,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ec-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Ecuador company registry (Superintendencia de Compañías) by company name: expediente number, RUC and name (the registry returns up to 15 matches per search). 1 point per returned record. [Company Registries]",
+  "description": "Search the Ecuador company registry (Superintendencia de Compañías) by company name: expediente number, RUC and name (the registry returns up to 15 matches per search). 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9105,7 +9045,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ge-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Georgia registry (NAPR) by identification code: name, status and legal form. 5 point per returned record. [Company Registries]",
+  "description": "Get one company from the Georgia registry (NAPR) by identification code: name, status and legal form. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9124,7 +9064,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-ge-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Georgia company registry (NAPR) by company name or identification code: name, registration number, status and legal form. 1 point per returned record. [Company Registries]",
+  "description": "Search the Georgia company registry (NAPR) by company name or identification code: name, registration number, status and legal form. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9163,7 +9103,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-il-companies",
   "tag": "Company Registries",
-  "description": "Get one company from the Israel registry (Corporations Authority) by company number: Hebrew and English name, status, registration date, address, company type, liability, purpose and last annual report year. 5 point per returned record. [Company Registries]",
+  "description": "Get one company from the Israel registry (Corporations Authority) by company number: Hebrew and English name, status, registration date, address, company type, liability, purpose and last annual report year. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9182,7 +9122,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-il-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Israel company registry (Corporations Authority) by company name or company number: name, registration number, status, address, company type and registration date. 1 point per returned record. [Company Registries]",
+  "description": "Search the Israel company registry (Corporations Authority) by company name or company number: name, registration number, status, address, company type and registration date. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9221,7 +9161,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-mx-companies",
   "tag": "Company Registries",
-  "description": "Get one company notice from the Mexican Registro Público de Comercio publications (PSM) by publication number: company name, legal form, publication type, title and date, a link to the published text and the publication history. 5 point per returned record. [Company Registries]",
+  "description": "Get one company notice from the Mexican Registro Público de Comercio publications (PSM) by publication number: company name, legal form, publication type, title and date, a link to the published text and the publication history. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9240,7 +9180,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-mx-companies-search",
   "tag": "Company Registries",
-  "description": "Search Mexican companies by name in the company publications of the Registro Público de Comercio (PSM): name, legal form and the latest publication with its number, type, title and date. 1 point per returned record. [Company Registries]",
+  "description": "Search Mexican companies by name in the company publications of the Registro Público de Comercio (PSM): name, legal form and the latest publication with its number, type, title and date. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9279,7 +9219,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-pa-companies",
   "tag": "Company Registries",
-  "description": "Get one entity from the Panama Registro Público (Consulta de Folios Suspendidos) by folio or registry link: name, status, register type, incorporation date and status date. Covers suspended, dissolved, merged and closed entities. 5 point per returned record. [Company Registries]",
+  "description": "Get one entity from the Panama Registro Público (Consulta de Folios Suspendidos) by folio or registry link: name, status, register type, incorporation date and status date. Covers suspended, dissolved, merged and closed entities. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9298,7 +9238,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-pa-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Panama Registro Público (Consulta de Folios Suspendidos) by company name or folio number: name, folio, status, register type, incorporation date and status date. Covers suspended, dissolved, merged and closed entities. 1 point per returned record. [Company Registries]",
+  "description": "Search the Panama Registro Público (Consulta de Folios Suspendidos) by company name or folio number: name, folio, status, register type, incorporation date and status date. Covers suspended, dissolved, merged and closed entities. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9337,7 +9277,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-gleif-companies",
   "tag": "Company Registries",
-  "description": "Get one LEI record from the Global LEI Index by LEI code or search.gleif.org link, with the Current Data tab of the page: names, legal form, registration authority, categories, BIC/ISIN codes, addresses, registration and issuer details, fund and branch relationships, and direct and ultimate parents. 5 point per returned record. [Company Registries]",
+  "description": "Get one LEI record from the Global LEI Index by LEI code or search.gleif.org link, with the Current Data tab of the page: names, legal form, registration authority, categories, BIC/ISIN codes, addresses, registration and issuer details, fund and branch relationships, and direct and ultimate parents. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9356,7 +9296,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-gleif-companies-search",
   "tag": "Company Registries",
-  "description": "Search the Global LEI Index by company name or LEI code: LEI, name, LEI status, address, legal form code, creation date, category, jurisdiction, registration dates and managing issuer. Filter by active or inactive LEI, exact LEI status, entity category and country. 1 point per returned record. [Company Registries]",
+  "description": "Search the Global LEI Index by company name or LEI code: LEI, name, LEI status, address, legal form code, creation date, category, jurisdiction, registration dates and managing issuer. Filter by active or inactive LEI, exact LEI status, entity category and country. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9428,7 +9368,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-lei-lookup-companies",
   "tag": "Company Registries",
-  "description": "Get one Legal Entity Identifier record by LEI code or lei-lookup.com link: name, entity and LEI status, registration and renewal dates, managing issuer, legal form, registration authority, legal and headquarters addresses, parent companies and the number of subsidiaries. 5 point per returned record. [Company Registries]",
+  "description": "Get one Legal Entity Identifier record by LEI code or lei-lookup.com link: name, entity and LEI status, registration and renewal dates, managing issuer, legal form, registration authority, legal and headquarters addresses, parent companies and the number of subsidiaries. 5 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9447,7 +9387,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-lei-lookup-companies-search",
   "tag": "Company Registries",
-  "description": "Search the public register of Legal Entity Identifiers by company name or LEI code: LEI, name, country, entity status, LEI registration status and link. Filter by entity status (active or inactive), LEI registration status and country. 1 point per returned record. [Company Registries]",
+  "description": "Search the public register of Legal Entity Identifiers by company name or LEI code: LEI, name, country, entity status, LEI registration status and link. Filter by entity status (active or inactive), LEI registration status and country. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9504,7 +9444,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-lei-lookup-company-relationships",
   "tag": "Company Registries",
-  "description": "Subsidiaries of one legal entity in the LEI register (direct and ultimate children): LEI, name, type of relationship and link. 1 point per returned record. [Company Registries]",
+  "description": "Subsidiaries of one legal entity in the LEI register (direct and ultimate children): LEI, name, type of relationship and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9535,7 +9475,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-mx-company-publications",
   "tag": "Company Registries",
-  "description": "All published notices of one company in the Mexican Registro Público de Comercio publications (PSM): assemblies, balances, capital and structure changes, with date, type, title and a link to the published text. 1 point per returned record. [Company Registries]",
+  "description": "All published notices of one company in the Mexican Registro Público de Comercio publications (PSM): assemblies, balances, capital and structure changes, with date, type, title and a link to the published text. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9566,7 +9506,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-sk-company-filings",
   "tag": "Company Registries",
-  "description": "List the documents in the Slovakia Commercial Register collection of documents (Zbierka listín) for one company, by IČO or registry URL: document name, type, delivery date and whether an electronic copy exists. 1 point per returned record. [Company Registries]",
+  "description": "List the documents in the Slovakia Commercial Register collection of documents (Zbierka listín) for one company, by IČO or registry URL: document name, type, delivery date and whether an electronic copy exists. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9597,7 +9537,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-betalist-startups",
   "tag": "Startup & Funding Data",
-  "description": "Get one startup from BetaList by slug or URL: name, tagline, description, makers, topics, launch date, screenshots and similar startups. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one startup from BetaList by slug or URL: name, tagline, description, makers, topics, launch date, screenshots and similar startups. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -9616,7 +9556,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-betalist-startups-latest",
   "tag": "Startup & Funding Data",
-  "description": "The newest startups on BetaList, newest first: name, tagline, logo and link. 1 point per returned record. [Startup & Funding Data]",
+  "description": "The newest startups on BetaList, newest first: name, tagline, logo and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -9640,7 +9580,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-betalist-startups-search",
   "tag": "Startup & Funding Data",
-  "description": "Search BetaList startups by keyword: name, tagline, logo and link. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search BetaList startups by keyword: name, tagline, logo and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9671,7 +9611,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-betalist-topics-startups",
   "tag": "Startup & Funding Data",
-  "description": "Startups of one BetaList topic (slug like generative-ai, category/topic, or a BetaList topic URL): name, tagline, logo and link. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Startups of one BetaList topic (slug like generative-ai, category/topic, or a BetaList topic URL): name, tagline, logo and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -9702,7 +9642,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-dealroom-companies",
   "tag": "Startup & Funding Data",
-  "description": "Get one company from Dealroom by slug or URL: tagline, HQ, founding year, sector, tier, valuation / revenue / headcount ranges, investors by round, ownership, funding events, alumni founders, footprint and investments. Dealroom shows ranges, not exact values, without a login. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one company from Dealroom by slug or URL: tagline, HQ, founding year, sector, tier, valuation / revenue / headcount ranges, investors by round, ownership, funding events, alumni founders, footprint and investments. Dealroom shows ranges, not exact values, without a login. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -9721,7 +9661,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-dealroom-companies-search",
   "tag": "Startup & Funding Data",
-  "description": "Search Dealroom companies by keyword and/or tier, sector and country: name, tier, sector, HQ, founding year, numeric valuation and range, logo and link. At least one of keyword / tier / sector / country is required. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search Dealroom companies by keyword and/or tier, sector and country: name, tier, sector, HQ, founding year, numeric valuation and range, logo and link. At least one of keyword / tier / sector / country is required. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -9801,7 +9741,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-dealroom-investors",
   "tag": "Startup & Funding Data",
-  "description": "Get one investor from Dealroom by slug or URL: type, HQ, rank, portfolio / unicorn / investment counts, links, biggest holdings, exits, portfolio analysis, market map, similar investors and key people. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one investor from Dealroom by slug or URL: type, HQ, rank, portfolio / unicorn / investment counts, links, biggest holdings, exits, portfolio analysis, market map, similar investors and key people. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -9820,7 +9760,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-dealroom-investors-search",
   "tag": "Startup & Funding Data",
-  "description": "Search the Dealroom investor index by name keyword, type and country, ordered by Dealroom rank: name, type, country, HQ, portfolio companies, rank and link. With no filters it returns the top of the index. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search the Dealroom investor index by name keyword, type and country, ordered by Dealroom rank: name, type, country, HQ, portfolio companies, rank and link. With no filters it returns the top of the index. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -9874,7 +9814,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-eustartups-directory",
   "tag": "Startup & Funding Data",
-  "description": "Get one startup from the EU-Startups database by slug or URL: tagline, description, country, city, tags, founding year, total funding, website, status, social links and related articles. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one startup from the EU-Startups database by slug or URL: tagline, description, country, city, tags, founding year, total funding, website, status, social links and related articles. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -9893,7 +9833,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-eustartups-directory-search",
   "tag": "Startup & Funding Data",
-  "description": "Search the EU-Startups startup database by country category (e.g. german-startups) or by keyword: name, city, tags, founding year, logo and link. Provide a country or a keyword. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search the EU-Startups startup database by country category (e.g. german-startups) or by keyword: name, city, tags, founding year, logo and link. Provide a country or a keyword. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -9925,7 +9865,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-eustartups-investors",
   "tag": "Startup & Funding Data",
-  "description": "Get one investor from the EU-Startups investor database by slug or URL: type, HQ country, website, investment areas, typical investment, funding stages, LinkedIn and contact email. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one investor from the EU-Startups investor database by slug or URL: type, HQ country, website, investment areas, typical investment, funding stages, LinkedIn and contact email. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -9944,7 +9884,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-eustartups-investors-search",
   "tag": "Startup & Funding Data",
-  "description": "Search the EU-Startups investor database by name, type and HQ country: type, HQ, investment areas, typical investment, funding stage and link. All filters are optional. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search the EU-Startups investor database by name, type and HQ country: type, HQ, investment areas, typical investment, funding stage and link. All filters are optional. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -9985,7 +9925,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-futurepedia-categories",
   "tag": "Startup & Funding Data",
-  "description": "AI tool categories of Futurepedia with the number of tools in each and the group they belong to (the top sub-categories shown on the Futurepedia categories page). Optional group filter. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "AI tool categories of Futurepedia with the number of tools in each and the group they belong to (the top sub-categories shown on the Futurepedia categories page). Optional group filter. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "properties": {
@@ -10013,7 +9953,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-futurepedia-tools",
   "tag": "Startup & Funding Data",
-  "description": "Get one AI tool from Futurepedia by slug or URL: description, rating and review count, categories, pricing, key features, pros and cons, use cases, pricing plans, rating breakdown and social links. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one AI tool from Futurepedia by slug or URL: description, rating and review count, categories, pricing, key features, pros and cons, use cases, pricing plans, rating breakdown and social links. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -10032,7 +9972,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-futurepedia-tools-alternatives",
   "tag": "Startup & Funding Data",
-  "description": "Alternatives to one Futurepedia AI tool (slug or URL): name, description, pricing, rating, categories and link. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Alternatives to one Futurepedia AI tool (slug or URL): name, description, pricing, rating, categories and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -10058,7 +9998,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-futurepedia-tools-reviews",
   "tag": "Startup & Funding Data",
-  "description": "User reviews of one Futurepedia AI tool (slug or URL): rating, review text and reviewer name. 1 point per returned record. [Startup & Funding Data]",
+  "description": "User reviews of one Futurepedia AI tool (slug or URL): rating, review text and reviewer name. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -10084,7 +10024,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-futurepedia-tools-search",
   "tag": "Startup & Funding Data",
-  "description": "List the AI tools of one Futurepedia category (slug like video-generators or a category URL) with sorting, pricing, feature and verified filters: name, description, pricing, rating, categories and link. 1 point per returned record. [Startup & Funding Data]",
+  "description": "List the AI tools of one Futurepedia category (slug like video-generators or a category URL) with sorting, pricing, feature and verified filters: name, description, pricing, rating, categories and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -10159,7 +10099,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-indiegogo-campaigns",
   "tag": "Startup & Funding Data",
-  "description": "Get one Indiegogo campaign by slug or URL: goal, funds raised, backers, phase and outcome, category, tags, story, risks, refund policy, stretch goals, creator and the number of perks. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one Indiegogo campaign by slug or URL: goal, funds raised, backers, phase and outcome, category, tags, story, risks, refund policy, stretch goals, creator and the number of perks. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -10178,7 +10118,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-indiegogo-campaigns-search",
   "tag": "Startup & Funding Data",
-  "description": "Search Indiegogo (and Gamefound) projects by keyword and category, phase, benefit, tag, creator and player-count filters: name, tagline, goal, funds raised, backers, phase, dates, creator and link. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search Indiegogo (and Gamefound) projects by keyword and category, phase, benefit, tag, creator and player-count filters: name, tagline, goal, funds raised, backers, phase, dates, creator and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -10317,7 +10257,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-indiehackers-ideas-search",
   "tag": "Startup & Funding Data",
-  "description": "Browse the Indie Hackers Ideas database, optionally by category: company, one-line idea, categories and MRR. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Browse the Indie Hackers Ideas database, optionally by category: company, one-line idea, categories and MRR. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -10345,7 +10285,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-indiehackers-posts",
   "tag": "Startup & Funding Data",
-  "description": "Get one Indie Hackers post by its slug or URL: title, full text, author, publish date, upvotes, comment count and the product it belongs to. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one Indie Hackers post by its slug or URL: title, full text, author, publish date, upvotes, comment count and the product it belongs to. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -10364,7 +10304,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-indiehackers-posts-comments",
   "tag": "Startup & Funding Data",
-  "description": "List the comments of one Indie Hackers post (threaded: depth and parent id): text, author, upvotes and date. 1 point per returned record. [Startup & Funding Data]",
+  "description": "List the comments of one Indie Hackers post (threaded: depth and parent id): text, author, upvotes and date. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -10395,7 +10335,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-indiehackers-posts-search",
   "tag": "Startup & Funding Data",
-  "description": "Indie Hackers post feeds: the top posts of a week, month or all time, or the newest posts, with author, upvotes and comment counts. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Indie Hackers post feeds: the top posts of a week, month or all time, or the newest posts, with author, upvotes and comment counts. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -10435,7 +10375,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-indiehackers-products",
   "tag": "Startup & Funding Data",
-  "description": "Get one product from Indie Hackers by slug or URL: name, tagline, description, website, Twitter, self-reported monthly revenue, founders and the product's updates. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one product from Indie Hackers by slug or URL: name, tagline, description, website, Twitter, self-reported monthly revenue, founders and the product's updates. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -10454,7 +10394,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-indiehackers-products-search",
   "tag": "Startup & Funding Data",
-  "description": "Browse the Indie Hackers products directory by sort, category, business model and monthly revenue range: name, tagline and self-reported revenue. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Browse the Indie Hackers products directory by sort, category, business model and monthly revenue range: name, tagline and self-reported revenue. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -10508,7 +10448,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-indiehackers-users",
   "tag": "Startup & Funding Data",
-  "description": "Get one Indie Hackers member by username or profile URL: name, bio, products with revenue and the latest activity. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one Indie Hackers member by username or profile URL: name, bio, products with revenue and the latest activity. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -10527,7 +10467,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-kickstarter-projects",
   "tag": "Startup & Funding Data",
-  "description": "Get one Kickstarter project by creator/project or URL: goal, pledged, backers, state, dates, creator, category, location, story, risks and counters of rewards, updates, comments and FAQ. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one Kickstarter project by creator/project or URL: goal, pledged, backers, state, dates, creator, category, location, story, risks and counters of rewards, updates, comments and FAQ. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -10546,7 +10486,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-kickstarter-projects-search",
   "tag": "Startup & Funding Data",
-  "description": "Search Kickstarter projects by keyword, category, state, staff picks, location and funding ranges: name, blurb, goal, pledged, backers, creator, category and link. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search Kickstarter projects by keyword, category, state, staff picks, location and funding ranges: name, blurb, goal, pledged, backers, creator, category and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -10666,7 +10606,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-owler-companies",
   "tag": "Startup & Funding Data",
-  "description": "Get one company from Owler by slug or URL: description, founded year, headquarters, CEO, revenue and employee estimates, full funding rounds with investors, acquisitions, investments, competitors and latest news. Flat 10 points per successful run. [Startup & Funding Data]",
+  "description": "Get one company from Owler by slug or URL: description, founded year, headquarters, CEO, revenue and employee estimates, full funding rounds with investors, acquisitions, investments, competitors and latest news. Flat 10 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -10685,7 +10625,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-owler-companies-competitors",
   "tag": "Startup & Funding Data",
-  "description": "Competitors of one Owler company (slug or URL): name, link, CEO, revenue, employees, funding, headquarters and sector. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Competitors of one Owler company (slug or URL): name, link, CEO, revenue, employees, funding, headquarters and sector. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -10716,7 +10656,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-owler-companies-news",
   "tag": "Startup & Funding Data",
-  "description": "Latest news about one Owler company (slug or URL): title, summary, publisher, date and link. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Latest news about one Owler company (slug or URL): title, summary, publisher, date and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -10753,7 +10693,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-owler-companies-search",
   "tag": "Startup & Funding Data",
-  "description": "Search Owler companies by name (the site's own suggestion list): company id, name, logo and profile link. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search Owler companies by name (the site's own suggestion list): company id, name, logo and profile link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -10779,7 +10719,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-pitchbook-companies",
   "tag": "Startup & Funding Data",
-  "description": "Get the public profile preview of a company by PitchBook id or URL: description, website, founded year, status, employees, industries, parent company, address, social links, FAQs, the latest deals, competitors, investors, investments, affiliates and patent tables shown in the free preview, verticals, related research and news. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get the public profile preview of a company by PitchBook id or URL: description, website, founded year, status, employees, industries, parent company, address, social links, FAQs, the latest deals, competitors, investors, investments, affiliates and patent tables shown in the free preview, verticals, related research and news. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -10798,7 +10738,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-pitchbook-investors",
   "tag": "Startup & Funding Data",
-  "description": "Get the public profile preview of an investor by PitchBook id or URL: description, website, founded year, status, investor types, address, social links, FAQs, counters (investments, portfolio, exits), the latest investments, exits, co-investors and affiliates shown in the free preview, related research and news. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get the public profile preview of an investor by PitchBook id or URL: description, website, founded year, status, investor types, address, social links, FAQs, counters (investments, portfolio, exits), the latest investments, exits, co-investors and affiliates shown in the free preview, related research and news. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -10817,7 +10757,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-pitchbook-profiles-search",
   "tag": "Startup & Funding Data",
-  "description": "Search PitchBook public profile previews by keyword: name, type (company / investor / fund), profile id and link. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search PitchBook public profile previews by keyword: name, type (company / investor / fund), profile id and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -10857,7 +10797,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-pitchwall-products",
   "tag": "Startup & Funding Data",
-  "description": "Get one product from PitchWall by slug or URL: tagline, full description with pricing and FAQs, website, topics, publish date, social accounts, screenshots and submitter. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one product from PitchWall by slug or URL: tagline, full description with pricing and FAQs, website, topics, publish date, social accounts, screenshots and submitter. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -10876,7 +10816,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-pitchwall-products-search",
   "tag": "Startup & Funding Data",
-  "description": "List the newest PitchWall products, or the products of one topic (tag): name, tagline, website, topics, publish date and link. The topic is optional. 1 point per returned record. [Startup & Funding Data]",
+  "description": "List the newest PitchWall products, or the products of one topic (tag): name, tagline, website, topics, publish date and link. The topic is optional. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -10904,7 +10844,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-categories",
   "tag": "Startup & Funding Data",
-  "description": "Products of a Product Hunt category: name, tagline, rating, review count, launches and categories. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Products of a Product Hunt category: name, tagline, rating, review count, launches and categories. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -10935,7 +10875,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-categories-list",
   "tag": "Startup & Funding Data",
-  "description": "The Product Hunt categories with their sub-categories: name, slug, parent and description. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "The Product Hunt categories with their sub-categories: name, slug, parent and description. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "properties": {}
@@ -10946,7 +10886,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-collections",
   "tag": "Startup & Funding Data",
-  "description": "Products of a Product Hunt collection in the curator's order, with the full list paged beyond the first 20. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Products of a Product Hunt collection in the curator's order, with the full list paged beyond the first 20. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -10977,7 +10917,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-collections-search",
   "tag": "Startup & Funding Data",
-  "description": "Browse Product Hunt collections page by page, or search them by keyword. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Browse Product Hunt collections page by page, or search them by keyword. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -11005,7 +10945,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-forums-search",
   "tag": "Startup & Funding Data",
-  "description": "Browse Product Hunt forum threads page by page, or search them by keyword. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Browse Product Hunt forum threads page by page, or search them by keyword. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -11033,7 +10973,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-forums-threads",
   "tag": "Startup & Funding Data",
-  "description": "Top-level comments of a Product Hunt forum thread: text, author, votes, reply count and date, all pages. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Top-level comments of a Product Hunt forum thread: text, author, votes, reply count and date, all pages. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -11064,7 +11004,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-launches",
   "tag": "Startup & Funding Data",
-  "description": "Get one Product Hunt launch by slug or URL: tagline, votes, comments, daily / weekly / monthly rank, dates, topics, link and the product it belongs to. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one Product Hunt launch by slug or URL: tagline, votes, comments, daily / weekly / monthly rank, dates, topics, link and the product it belongs to. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -11083,7 +11023,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-launches-search",
   "tag": "Startup & Funding Data",
-  "description": "Search Product Hunt launches by keyword: name, date and the product behind each launch. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search Product Hunt launches by keyword: name, date and the product behind each launch. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -11114,7 +11054,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-leaderboards",
   "tag": "Startup & Funding Data",
-  "description": "Launches of a Product Hunt leaderboard (day, week, month or year): rank, name, tagline, votes, comments, topics and product link, beyond the first page. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Launches of a Product Hunt leaderboard (day, week, month or year): rank, name, tagline, votes, comments, topics and product link, beyond the first page. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -11159,7 +11099,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-products",
   "tag": "Startup & Funding Data",
-  "description": "Get one product from Product Hunt by slug or URL: tagline, description, website, rating, review count, followers, launches, categories, social links, pros and cons, makers, awards and similar products. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one product from Product Hunt by slug or URL: tagline, description, website, rating, review count, followers, launches, categories, social links, pros and cons, makers, awards and similar products. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -11178,7 +11118,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-products-alternatives",
   "tag": "Startup & Funding Data",
-  "description": "Alternatives of a Product Hunt product with their rating and similarity score, all pages. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Alternatives of a Product Hunt product with their rating and similarity score, all pages. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -11209,7 +11149,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-products-customers",
   "tag": "Startup & Funding Data",
-  "description": "Customers of a Product Hunt product (products whose makers say they use it) with the shoutout note. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Customers of a Product Hunt product (products whose makers say they use it) with the shoutout note. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -11240,7 +11180,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-products-launches",
   "tag": "Startup & Funding Data",
-  "description": "Launches of a Product Hunt product: votes, comments, ranks and dates, all pages. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Launches of a Product Hunt product: votes, comments, ranks and dates, all pages. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -11271,7 +11211,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-products-reviews",
   "tag": "Startup & Funding Data",
-  "description": "Reviews of a Product Hunt product (all review types): rating, text, reviewer, date and alternatives mentioned, all pages. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Reviews of a Product Hunt product (all review types): rating, text, reviewer, date and alternatives mentioned, all pages. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -11302,7 +11242,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-products-search",
   "tag": "Startup & Funding Data",
-  "description": "Search Product Hunt products by keyword: name, tagline, rating, review count, logo and link. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search Product Hunt products by keyword: name, tagline, rating, review count, logo and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -11333,7 +11273,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-topics",
   "tag": "Startup & Funding Data",
-  "description": "Products of a Product Hunt topic: name, tagline, rating, review count, launches and categories. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Products of a Product Hunt topic: name, tagline, rating, review count, launches and categories. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -11364,7 +11304,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-users",
   "tag": "Startup & Funding Data",
-  "description": "Get one Product Hunt user by username or URL: name, headline, about, followers, submitted launches, products, collections, reviews, links and join date. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one Product Hunt user by username or URL: name, headline, about, followers, submitted launches, products, collections, reviews, links and join date. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -11383,7 +11323,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-users-collections",
   "tag": "Startup & Funding Data",
-  "description": "Collections of a Product Hunt user with their size and first products, all pages. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Collections of a Product Hunt user with their size and first products, all pages. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -11414,7 +11354,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-users-comments",
   "tag": "Startup & Funding Data",
-  "description": "Comments of a Product Hunt user, taken from their activity feed (comments filter), all pages. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Comments of a Product Hunt user, taken from their activity feed (comments filter), all pages. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -11445,7 +11385,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-users-launches",
   "tag": "Startup & Funding Data",
-  "description": "Launches submitted by a Product Hunt user: votes, comments, ranks and dates, all pages. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Launches submitted by a Product Hunt user: votes, comments, ranks and dates, all pages. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -11476,7 +11416,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-users-stacks",
   "tag": "Startup & Funding Data",
-  "description": "Products in a Product Hunt user's stack with who recommended them. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Products in a Product Hunt user's stack with who recommended them. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -11502,7 +11442,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-producthunt-users-upvotes",
   "tag": "Startup & Funding Data",
-  "description": "Launches a Product Hunt user upvoted, newest first: votes, comments, ranks and dates. The site serves at most the latest 200 upvotes of a user. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Launches a Product Hunt user upvoted, newest first: votes, comments, ranks and dates. The site serves at most the latest 200 upvotes of a user. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -11533,7 +11473,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-seedrs-businesses",
   "tag": "Startup & Funding Data",
-  "description": "Get one funded business from the Republic Europe (Seedrs) secondary-market page by slug or URL: description, sector, available shares, indicative valuation and its change, eligibility and incorporation date. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one funded business from the Republic Europe (Seedrs) secondary-market page by slug or URL: description, sector, available shares, indicative valuation and its change, eligibility and incorporation date. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -11552,7 +11492,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-seedrs-campaigns",
   "tag": "Startup & Funding Data",
-  "description": "Get one Republic Europe (Seedrs) campaign by slug or URL: raised and target amounts, valuation, equity offered, share price, investors, tax relief, company number, sectors, links, highlights and the pitch text. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one Republic Europe (Seedrs) campaign by slug or URL: raised and target amounts, valuation, equity offered, share price, investors, tax relief, company number, sectors, links, highlights and the pitch text. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -11571,7 +11511,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-seedrs-campaigns-search",
   "tag": "Startup & Funding Data",
-  "description": "Search the live Republic Europe (Seedrs) campaigns by campaign-name word and sector, impact tag, business type, tax relief and pitch type filters: raised and target amounts, valuation, investors, type, status and link. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search the live Republic Europe (Seedrs) campaigns by campaign-name word and sector, impact tag, business type, tax relief and pitch type filters: raised and target amounts, valuation, investors, type, status and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -11707,7 +11647,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-techeu-companies",
   "tag": "Startup & Funding Data",
-  "description": "Get one company from Tech.eu Funding Explorer by id or URL: description, location, sectors, every funding round with investors, exit and funding-signal estimates. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one company from Tech.eu Funding Explorer by id or URL: description, location, sectors, every funding round with investors, exit and funding-signal estimates. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -11726,7 +11666,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-techeu-exits-search",
   "tag": "Startup & Funding Data",
-  "description": "Search European startup exits and M&A (Tech.eu Funding Explorer, CC BY 4.0), newest first: company, date, type, value in EUR and acquirer. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search European startup exits and M&A (Tech.eu Funding Explorer, CC BY 4.0), newest first: company, date, type, value in EUR and acquirer. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -11762,7 +11702,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-techeu-investors",
   "tag": "Startup & Funding Data",
-  "description": "Get one investor profile from Tech.eu Funding Explorer by name or URL: deals, portfolio, biggest deals, co-investors, sector / stage / country focus. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one investor profile from Tech.eu Funding Explorer by name or URL: deals, portfolio, biggest deals, co-investors, sector / stage / country focus. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -11781,7 +11721,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-techeu-investors-search",
   "tag": "Startup & Funding Data",
-  "description": "Search the Tech.eu investor directory by name: type, number of deals and companies, top sector and active years. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search the Tech.eu investor directory by name: type, number of deals and companies, top sector and active years. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -11822,7 +11762,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-techeu-rounds-search",
   "tag": "Startup & Funding Data",
-  "description": "Search European startup funding rounds (Tech.eu Funding Explorer, CC BY 4.0), newest first: company, amount in EUR, stage, investors, date and source. Filter by country, stage, sector, minimum amount and dates. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search European startup funding rounds (Tech.eu Funding Explorer, CC BY 4.0), newest first: company, amount in EUR, stage, investors, date and source. Filter by country, stage, sector, minimum amount and dates. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -11920,7 +11860,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-theresanaiforthat-companies",
   "tag": "Startup & Funding Data",
-  "description": "Get one company from There's An AI For That by slug or URL: description, industry, location, website, socials, AI-native flag, employees, valuation, ranks and its tools. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one company from There's An AI For That by slug or URL: description, industry, location, website, socials, AI-native flag, employees, valuation, ranks and its tools. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -11939,7 +11879,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-theresanaiforthat-countries",
   "tag": "Startup & Funding Data",
-  "description": "AI ecosystem ranking of countries from There's An AI For That: region, AI market cap, population, AI investment per capita and the number of companies, organizations, investors, tools, models, papers, devices, robots and fundraises. Optional region filter. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "AI ecosystem ranking of countries from There's An AI For That: region, AI market cap, population, AI investment per capita and the number of companies, organizations, investors, tools, models, papers, devices, robots and fundraises. Optional region filter. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "properties": {
@@ -11967,7 +11907,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-theresanaiforthat-tasks",
   "tag": "Startup & Funding Data",
-  "description": "Get one task (category) from There's An AI For That by slug or URL: number of tools, models, robots and devices, subscribers, most popular tool, subtasks, related tasks and the top tools. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one task (category) from There's An AI For That by slug or URL: number of tools, models, robots and devices, subscribers, most popular tool, subtasks, related tasks and the top tools. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -11986,7 +11926,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-theresanaiforthat-tools",
   "tag": "Startup & Funding Data",
-  "description": "Get one AI tool from There's An AI For That by slug or URL: tagline, description, website, pricing, rating and its breakdown, views, saves, task, company, country, features, releases, pros and cons, FAQ and counters of alternatives and reviews. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one AI tool from There's An AI For That by slug or URL: tagline, description, website, pricing, rating and its breakdown, views, saves, task, company, country, features, releases, pros and cons, FAQ and counters of alternatives and reviews. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -12005,7 +11945,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-theresanaiforthat-tools-alternatives",
   "tag": "Startup & Funding Data",
-  "description": "Alternatives and similar tools of one There's An AI For That tool (top alternatives and \"if you liked\" recommendations): name, short description, task, price, rating, views and link. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Alternatives and similar tools of one There's An AI For That tool (top alternatives and \"if you liked\" recommendations): name, short description, task, price, rating, views and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -12031,7 +11971,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-theresanaiforthat-tools-reviews",
   "tag": "Startup & Funding Data",
-  "description": "Reviews and comments of one There's An AI For That tool: text, star rating, date, release, votes and author. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Reviews and comments of one There's An AI For That tool: text, star rating, date, release, votes and author. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -12057,7 +11997,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-theresanaiforthat-tools-search",
   "tag": "Startup & Funding Data",
-  "description": "Search AI tools on There's An AI For That by keyword or task name: name, short description, task, price, rating, views, saves and link. Sorting and tool type apply to task names (for example seo or video editing). Paid placements are skipped. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search AI tools on There's An AI For That by keyword or task name: name, short description, task, price, rating, views, saves and link. Sorting and tool type apply to task names (for example seo or video editing). Paid placements are skipped. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -12115,7 +12055,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-tracxn-companies",
   "tag": "Startup & Funding Data",
-  "description": "Get one company from Tracxn by profile URL or id token: description, website, founding year, location, stage, sectors, total funding, latest round, valuation, investors, revenue band, employee count, competitors, legal entities, board, the 3 latest funding rounds and news. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one company from Tracxn by profile URL or id token: description, website, founding year, location, stage, sectors, total funding, latest round, valuation, investors, revenue band, employee count, competitors, legal entities, board, the 3 latest funding rounds and news. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -12134,7 +12074,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-tracxn-companies-funding",
   "tag": "Startup & Funding Data",
-  "description": "Get all funding rounds and the investor list of one Tracxn company (profile URL or id token): date, amount, round name, lead and other investors, plus the first-investment line of the institutional investors. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get all funding rounds and the investor list of one Tracxn company (profile URL or id token): date, amount, round name, lead and other investors, plus the first-investment line of the institutional investors. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -12153,7 +12093,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-tracxn-companies-search",
   "tag": "Startup & Funding Data",
-  "description": "Get the companies of a Tracxn list page (an explore list such as Auto Tech startups in India, or a sector /companies page): name, description, founded year, location, stage, total funding, investors, Tracxn score, competitor rank. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Get the companies of a Tracxn list page (an explore list such as Auto Tech startups in India, or a sector /companies page): name, description, founded year, location, stage, total funding, investors, Tracxn score, competitor rank. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -12179,7 +12119,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-tracxn-geographies",
   "tag": "Startup & Funding Data",
-  "description": "Get one country startup landscape from Tracxn by URL or id token: totals, top companies and investors, recent funding rounds, acquisitions, IPOs and news. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one country startup landscape from Tracxn by URL or id token: totals, top companies and investors, recent funding rounds, acquisitions, IPOs and news. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -12198,7 +12138,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-tracxn-investors",
   "tag": "Startup & Funding Data",
-  "description": "Get one investor (VC, PE, angel network, family office ...) from Tracxn by profile URL or id token: type, founding year, headquarters, portfolio and unicorn / IPO / acquisition counts, top investments, yearly / stage / sector / geography breakdowns, recent investments, team, co-investors and news. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one investor (VC, PE, angel network, family office ...) from Tracxn by profile URL or id token: type, founding year, headquarters, portfolio and unicorn / IPO / acquisition counts, top investments, yearly / stage / sector / geography breakdowns, recent investments, team, co-investors and news. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -12217,7 +12157,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-tracxn-legal-entities",
   "tag": "Startup & Funding Data",
-  "description": "Get one registered legal entity from Tracxn by URL or id token: CIN, status, type, incorporation date, registrar, capital, address, brands, business activity, recent filings, directors and signatories. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one registered legal entity from Tracxn by URL or id token: CIN, status, type, incorporation date, registrar, capital, address, brands, business activity, recent filings, directors and signatories. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -12236,7 +12176,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-tracxn-legal-entities-search",
   "tag": "Startup & Funding Data",
-  "description": "Search 21.9M registered legal entities in Tracxn by name or CIN in one of 13 countries (default India): name, CIN, incorporation date, status, associated brands and link. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search 21.9M registered legal entities in Tracxn by name or CIN in one of 13 countries (default India): name, CIN, incorporation date, status, associated brands and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -12281,7 +12221,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-tracxn-people",
   "tag": "Startup & Funding Data",
-  "description": "Get one founder / angel investor / board member from Tracxn by profile URL or id token: roles, founded companies, board memberships, angel investments, portfolio exits and top news. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one founder / angel investor / board member from Tracxn by profile URL or id token: roles, founded companies, board memberships, angel investments, portfolio exits and top news. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -12300,7 +12240,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-tracxn-sectors",
   "tag": "Startup & Funding Data",
-  "description": "Get one Tracxn sector overview by URL or id token: company / funding / unicorn / IPO / acquisition totals, top companies and investors, founding and funding trends by year and country, recent rounds, acquisitions, IPOs and news. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one Tracxn sector overview by URL or id token: company / funding / unicorn / IPO / acquisition totals, top companies and investors, founding and funding trends by year and country, recent rounds, acquisitions, IPOs and news. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -12319,7 +12259,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-tracxn-unicorns-search",
   "tag": "Startup & Funding Data",
-  "description": "List the unicorn startups of a country from Tracxn Unicorn Club (newest first): rank, name, description, founded year, location, stage, sectors, time to unicorn, top investors, employees, total funding, join date. 1 point per returned record. [Startup & Funding Data]",
+  "description": "List the unicorn startups of a country from Tracxn Unicorn Club (newest first): rank, name, description, founded year, location, stage, sectors, time to unicorn, top investors, employees, total funding, join date. 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -12350,7 +12290,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-wefunder-companies",
   "tag": "Startup & Funding Data",
-  "description": "Get one WeFunder company by slug or URL: tagline, location, total raised and investors, current round (valuation, minimum investment, closing date), highlights, team, featured investors, memos, perks, FAQ and the latest updates and questions. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one WeFunder company by slug or URL: tagline, location, total raised and investors, current round (valuation, minimum investment, closing date), highlights, team, featured investors, memos, perks, FAQ and the latest updates and questions. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -12369,7 +12309,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-wefunder-companies-search",
   "tag": "Startup & Funding Data",
-  "description": "Browse WeFunder campaigns by status, instrument and industry / highlight tags: name, tagline, raise progress, investors, valuation terms, founder and link. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Browse WeFunder campaigns by status, instrument and industry / highlight tags: name, tagline, raise progress, investors, valuation terms, founder and link. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -12426,7 +12366,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-wellfound-companies",
   "tag": "Startup & Funding Data",
-  "description": "Get one company from Wellfound by slug or URL: description, size, stage, total raised, funding rounds, founders, tags, locations and open jobs. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one company from Wellfound by slug or URL: description, size, stage, total raised, funding rounds, founders, tags, locations and open jobs. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -12445,7 +12385,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-wellfound-jobs-search",
   "tag": "Startup & Funding Data",
-  "description": "Search Wellfound jobs by role and location: job title, pay, locations, description and the hiring company (size, stage, tags). 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search Wellfound jobs by role and location: job title, pay, locations, description and the hiring company (size, stage, tags). 1 point per returned record.",
   "schema": {
    "type": "object",
    "required": [
@@ -12481,7 +12421,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-yc-companies",
   "tag": "Startup & Funding Data",
-  "description": "Get one Y Combinator company by slug or URL: one-liner, description, batch, status, website, team size, location, founders with bios, social links, news and Launch YC posts. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "Get one Y Combinator company by slug or URL: one-liner, description, batch, status, website, team size, location, founders with bios, social links, news and Launch YC posts. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "required": [
@@ -12500,7 +12440,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-yc-companies-search",
   "tag": "Startup & Funding Data",
-  "description": "Search the Y Combinator directory by keyword and filters (batch, industry, region, hiring, top company, nonprofit, team size): name, one-liner, batch, status, industries, regions, team size and website. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search the Y Combinator directory by keyword and filters (batch, industry, region, hiring, top company, nonprofit, team size): name, one-liner, batch, status, industries, regions, team size and website. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -12570,7 +12510,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-yc-founders-search",
   "tag": "Startup & Funding Data",
-  "description": "Search the public Y Combinator founders directory by name keyword and filters (batch, title, industry, top company): name, title, company, batches, industries and region. 1 point per returned record. [Startup & Funding Data]",
+  "description": "Search the public Y Combinator founders directory by name keyword and filters (batch, title, industry, top company): name, title, company, batches, industries and region. 1 point per returned record.",
   "schema": {
    "type": "object",
    "properties": {
@@ -12614,7 +12554,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-eustartups-directory-categories",
   "tag": "Startup & Funding Data",
-  "description": "The country categories of the EU-Startups database with their slugs (use them as the country filter of the directory search), names, links and startup counts. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "The country categories of the EU-Startups database with their slugs (use them as the country filter of the directory search), names, links and startup counts. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "properties": {}
@@ -12625,7 +12565,7 @@ export const endpoints: EndpointDef[] = [
   "method": "POST",
   "path": "/functions/v1/run-wellfound-locations",
   "tag": "Startup & Funding Data",
-  "description": "The list of Wellfound job locations (US cities, US states, countries and other places) with the slug to use as the location in Wellfound jobs search. Optional type and name filters. Flat 5 points per successful run. [Startup & Funding Data]",
+  "description": "The list of Wellfound job locations (US cities, US states, countries and other places) with the slug to use as the location in Wellfound jobs search. Optional type and name filters. Flat 5 points per successful run.",
   "schema": {
    "type": "object",
    "properties": {

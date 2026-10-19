@@ -1,6 +1,6 @@
 # NeuralVerge MCP Server
 
-An [MCP](https://modelcontextprotocol.io) (Model Context Protocol) server that wraps the full [NeuralVerge](https://docs.neuralverge.ai) API — AI Research, AI Extract, AI Agents, and Data Sources (LinkedIn, Crunchbase, Email enrichment and lookup, Phone enrichment and lookup, Email verification) — as MCP tools, so any MCP-compatible client (Claude Desktop, Claude Code, Cursor, ChatGPT/GPT clients with MCP support, and others) can call it directly.
+An [MCP](https://modelcontextprotocol.io) (Model Context Protocol) server that wraps the full [NeuralVerge](https://docs.neuralverge.ai) API — AI Research, Search, AI Extract, and all Data Sources (LinkedIn, Crunchbase, email/phone enrichment, e-commerce marketplaces, product reviews, company registries, startup & funding data) — as MCP tools, so any MCP-compatible client (Claude Desktop, Claude Code, Cursor, ChatGPT/GPT clients with MCP support, and others) can call it directly.
 
 This is an independent, unofficial wrapper around the NeuralVerge API. It is not affiliated with or endorsed by NeuralVerge.
 
@@ -13,256 +13,140 @@ Before installing, you need a NeuralVerge account and an API key:
 3. Generate an API key from your account/API settings in the app.
 4. Use that key as `NEURALVERGE_API_KEY` in the [Configuration](#configuration) step further down.
 
+## MCP server overview
+
+NeuralVerge exposes its API as a remote [Model Context Protocol](https://modelcontextprotocol.io) (MCP) server, so any MCP-compatible client — Claude, ChatGPT, Cursor, or a custom agent — can call Search, AI Extract, and every Data Source (including marketplaces and product reviews) directly as tools, without writing any HTTP integration code. See the official page: [docs.neuralverge.ai/mcp-server](https://docs.neuralverge.ai/mcp-server).
+
+This repository is a **self-hosted equivalent** of that server: same tool names, same input schemas, same behavior, and it can run either as a local stdio process or as a Streamable HTTP server. Two differences from the hosted server:
+
+- This server additionally exposes the two AI Research tools (`run_research`, `get_session_status`). The hosted server leaves them out because a research run is asynchronous, while an MCP tool normally returns its result inside the call. Here they work as a start-then-poll pair.
+- Total tool count: **344** here (342 hosted-style tools + 2 AI Research tools).
+
+> **About the "251 tools" figure.** The hosted docs page says the server exposes 251 tools, but the tables on that same page list **342** tools (`run_search`, `run_extract` and every Data Source endpoint) — the OpenAPI spec has 344 endpoints in total, i.e. those 342 plus `run_research` and `get_session_status`. The 251 in the prose is outdated; this server exposes all of them.
+
+### Quickstart
+
+1. **Get an API key.** In the NeuralVerge dashboard open **Settings → API**, click **Create API Key**, and copy the key. Keep it private — it is the only thing that authenticates the connection.
+2. **Point your client at a server.** Either use NeuralVerge's hosted endpoint, or run this repository (see [Installation](#installation) and [Transports & client compatibility](#transports--client-compatibility)).
+
+   Hosted endpoint, Claude Code:
+
+   ```bash
+   claude mcp add --transport http neuralverge \
+     https://api.neuralverge.ai/functions/v1/mcp-server \
+     --header "Authorization: Bearer YOUR_API_KEY"
+   ```
+
+   Hosted endpoint, Cursor and other JSON clients:
+
+   ```json
+   {
+     "mcpServers": {
+       "neuralverge": {
+         "url": "https://api.neuralverge.ai/functions/v1/mcp-server",
+         "headers": {
+           "Authorization": "Bearer YOUR_API_KEY"
+         }
+       }
+     }
+   }
+   ```
+
+   This repository, Claude Code (local stdio):
+
+   ```bash
+   claude mcp add neuralverge -e NEURALVERGE_API_KEY=YOUR_API_KEY -- node /absolute/path/to/MCP/dist/index.js
+   ```
+
+3. **Let the agent call tools.** Start a new conversation and ask for something that needs data, for example: *"Find the registered address of Škoda Auto in the Czech company registry."* The agent picks the right tool, calls it mid-task, and answers from the result.
+
+### Hosted endpoint
+
+```
+https://api.neuralverge.ai/functions/v1/mcp-server
+```
+
+The hosted server speaks MCP's **Streamable HTTP** transport and is stateless — each request is handled independently, with no session to keep alive between calls. Requests must include:
+
+```
+Accept: application/json, text/event-stream
+```
+
+### Authentication
+
+Send your API key as a bearer token — the same key the REST API uses: `Authorization: Bearer YOUR_API_KEY`. Create a key under **Settings → API** in the dashboard (see [docs.neuralverge.ai/authentication](https://docs.neuralverge.ai/authentication)). On the hosted endpoint, a request with a missing or invalid key is rejected with `401 Unauthorized` before any tool runs. When you run this repository instead, the key is passed to the server process as `NEURALVERGE_API_KEY` (see [Configuration](#configuration)).
+
+### Tool count
+
+`tools/list` returns every tool in one response — roughly 150 KB of JSON for the hosted tool set, a bit more here. Two things follow from that:
+
+- A model pays for those definitions in context on every conversation that has the server attached.
+- Clients that limit the number of active tools will load only some of them, and the rest will be invisible to the model.
+
+If you only need a few sources, attach the server to a client that lets you pick tools, or proxy it and expose the subset you use.
+
+### Synchronous results
+
+Every tool except `run_research` returns its result directly in the tool response — there is no session to poll. A scrape that hits its time budget returns `partial: true` with the records collected so far, so a long run degrades to a shorter result instead of failing.
+
+### Connecting an MCP client
+
+- **Claude Code, Cursor and other JSON-config clients** — see the [Quickstart](#quickstart) above.
+- **Generic remote HTTP client (ChatGPT, etc.)** — add a remote MCP connector pointing at the hosted endpoint above (or at your own deployment of this server in HTTP mode, see [Streamable HTTP](#streamable-http-chatgpt--remote-clients)), with an `Authorization: Bearer YOUR_API_KEY` header. Any client that speaks MCP's Streamable HTTP transport works.
+- **MCP Inspector** — run `npx @modelcontextprotocol/inspector`, connect to `https://api.neuralverge.ai/functions/v1/mcp-server` in **HTTP** mode, and set the `Authorization` header to explore and test tools interactively.
+
+### Example request
+
+```bash
+curl -X POST "https://api.neuralverge.ai/functions/v1/mcp-server" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "tools/call",
+    "params": {
+      "name": "run_email_validation",
+      "arguments": { "email": "john@example.com" }
+    }
+  }'
+```
+
+### Errors
+
+Once a request is authenticated, errors from an individual tool call (invalid parameters, `402 Payment Required` for usage limits, upstream failures, and so on) are returned inside the MCP tool result with `isError: true` rather than as an HTTP failure — this lets the calling model see and react to the error instead of the whole request failing. The underlying status codes are the same ones described in [Errors & Rate Limits](https://docs.neuralverge.ai/errors-and-rate-limits) and in [Error handling](#error-handling) below.
+
 ## Tools
 
-Every NeuralVerge API endpoint is exposed as a 1:1 MCP tool. `run_research` and `run_agent` are asynchronous — they return a `session_id` immediately; call `get_session_status` every 2–5 seconds until `status` is `complete` or `failed` (NeuralVerge's own polling guidance). Every other tool returns its result synchronously.
+The server exposes **every endpoint of the NeuralVerge API as a 1:1 MCP tool — 344 tools in total**. The tool list is generated from the official [OpenAPI spec](https://docs.neuralverge.ai/openapi.json), so input schemas (types, enums, min/max, required fields) match the REST API exactly. The full catalog with parameters is in [docs/TOOLS.md](docs/TOOLS.md).
 
-### AI Research
+`run_research` is asynchronous — it returns a `session_id` immediately; call `get_session_status` every 2–5 seconds until `status` is `complete` or `failed`. Every other tool returns its result synchronously (a scrape that hits its time budget returns `partial: true` with the records collected so far).
 
-#### `run_research`
-Starts the full multi-step research workflow: searches, analyzes sources, and returns a structured report. Async — returns a `session_id`.
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| `instructions` | string | Yes | The research task, in natural language. |
-| `settings.country_code` | string | No | Two-letter country code, e.g. `us`. |
-| `settings.search_enabled` | boolean | No | Whether web search runs during the task. |
-| `settings.deepsearch_model` | string | No | Depth tier for the research step (drives cost — see [Pricing](#pricing)). |
-| `settings.finalizer_model` | string | No | Model used to write the final report. |
-| `settings.extract_schema_json` | string | No | JSON-encoded schema pinning the structured output shape. |
-
-Cost: 20–400 pts, depending on `deepsearch_model` depth tier.
-
-#### `run_agent`
-Runs a saved NeuralVerge agent — a reusable workflow with baked-in instructions and settings — by its `agentId`. Async — returns a `session_id`.
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| `agentId` | string (uuid) | Yes | ID of the saved agent to run. |
-| `instructions` | string | Yes | Instructions for this specific run. |
-| `settings.country_code` | string | No | Two-letter country code. |
-| `settings.search_enabled` | boolean | No | Whether web search runs during the task. |
-| `settings.deepsearch_model` | string | No | Depth tier for the research step. |
-| `settings.finalizer_model` | string | No | Model used to write the final report. |
-
-Cost: same tiered pricing as `run_research`, based on the agent's configured depth.
-
-#### `get_session_status`
-Polls a session created by `run_research` or `run_agent`.
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| `session_id` | string (uuid) | Yes | Session ID returned by `run_research` or `run_agent`. |
-
-Returns `status` (`queued`/`running`/`complete`/`failed`) and, once complete, a `results` object with a `human` (Markdown summary) and `machine` (structured JSON) field. Polling itself is free.
-
-#### `run_search`
-Runs a synchronous web search and returns ranked results (title, URL, snippet). No polling needed.
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| `query` | string | Yes | Search query. |
-| `settings.country` | string | No | Country to bias results toward. |
-| `settings.language` | string | No | Language to bias results toward. |
-| `settings.max_results` | number | No | Maximum number of results to return. |
-
-Cost: 5 pts.
-
-### AI Extract
-
-#### `run_extract`
-Loads a page by URL and extracts structured data according to natural-language instructions and/or a JSON schema. Synchronous.
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| `url` | string | Yes | URL of the page to load and extract from. |
-| `instructions` | string | Yes | What to extract, in natural language. |
-| `settings.country_code` | string | No | Two-letter country code for locale-sensitive pages. |
-| `settings.extract_schema_json` | string | No | JSON-encoded schema pinning the output shape. |
-
-Cost: 5 pts.
-
-This is also the **generic gateway NeuralVerge itself uses** for every catalog data source that doesn't have its own dedicated endpoint (corporate registries, review sites, LinkedIn profiles without email) — point it at the right URL with the right `extract_schema_json` and it behaves like a dedicated source. See [Data sources not exposed as dedicated tools](#data-sources-not-exposed-as-dedicated-tools) below.
-
-### AI Agents
-
-`run_agent` (see above, under AI Research) — NeuralVerge tags it "AI Agents" since it executes saved, reusable agent configurations rather than one-off instructions.
-
-### Data Sources — dedicated tools
-
-These 11 catalog sources have their own dedicated endpoints/tools:
-
-#### `run_linkedin_email`
-LinkedIn profile lookup by URL, returning contact details including email when available (catalog: **LinkedIn people profile + Email**).
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| `username` | string | Yes | Full LinkedIn profile URL, e.g. `https://www.linkedin.com/in/john-doe/` |
-
-Cost: 10 pts.
-
-#### `run_linkedin_domain`
-Finds a LinkedIn profile from a company name/domain plus a full name (catalog: **LinkedIn profile by name and domain**).
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| `company_or_domain` | string | Yes | Company name or domain, e.g. `openai.com` |
-| `full_name` | string | Yes | Full name of the person to find. |
-
-Cost: 10 pts.
-
-#### `run_linkedin_company_search`
-Searches LinkedIn companies by query with optional filters.
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| `searchQuery` | string | Yes | Free-text company search query. |
-| `companySize` | string[] | No | Size buckets, e.g. `["51-200"]`. |
-| `industryIds` | string[] | No | Industry filters. |
-| `locations` | string[] | No | Location filters. |
-| `maxItems` | number | No | Max number of results. |
-| `scraperMode` | string | No | Scraper depth, e.g. `short` or `full`. |
-| `startPage` | number | No | Page offset. |
-
-Cost: 5 pts per company returned.
-
-#### `run_linkedin_people_search`
-Searches LinkedIn people with an optional free-text query and advanced filters (company, title, seniority, industry, experience, location).
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| `searchQuery` | string | No | Free-text people search query. |
-| `maxResults` | number | No | Max number of results. |
-| `startPage` | number | No | Page offset. |
-| `scraperMode` | string | No | Scraper depth, e.g. `short` or `full`. |
-| `locations` | string[] | No | Location filters. |
-| `currentCompany` / `pastCompany` | string[] | No | Current/past employer filters. |
-| `currentJobTitleFilter` / `pastJobTitle` | string[] | No | Current/past title filters. |
-| `yearsOfExperienceFilter` | string[] | No | Experience range filters. |
-| `yearsAtCurrentCompanyFilter` | string[] | No | Tenure filters. |
-| `seniorityLevelFilter` | string[] | No | Seniority filters. |
-| `functionFilter` | string[] | No | Job function filters. |
-| `industryIds` | string[] | No | Industry filters. |
-| `firstNames` / `lastNames` | string[] | No | Name filters. |
-| `companyHeadcountFilter` | string[] | No | Employer size filters. |
-
-Cost: 100 pts per 25 results.
-
-#### `run_linkedin_company_employee`
-Searches employees of one or more given companies, using the same filter set as `run_linkedin_people_search`.
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| `companies` | string[] | Yes | LinkedIn company URLs or names to search employees of. |
-| `searchQuery` | string | No | Free-text search query. |
-| `maxResults`, `startPage`, `scraperMode`, `locations`, `currentJobTitleFilter`, `pastJobTitle`, `yearsOfExperienceFilter`, `yearsAtCurrentCompanyFilter`, `seniorityLevelFilter`, `functionFilter`, `industryIds`, `companyHeadcountFilter` | — | No | Same semantics as `run_linkedin_people_search`. |
-
-Cost: 30 pts per run + 5 pts per profile returned.
-
-#### `run_email_enrichment`
-Enriches a known email with profile data (name, phones, company, position, LinkedIn/X/Telegram, work experience).
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| `email` | string | Yes | Email address to enrich. |
-
-Cost: 10 pts.
-
-#### `run_email_validation`
-Validates deliverability of an email address (valid/invalid/risky, catch-all detection, mail provider, confidence).
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| `email` | string | Yes | Email address to validate. |
-
-Cost: 1 pt — the cheapest call in the catalog.
-
-#### `run_email_finder`
-Finds a professional email address from a company domain, first name, and last name.
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| `domain` | string | Yes | Company domain, e.g. `openai.com` |
-| `first_name` | string | Yes | Person's first name. |
-| `last_name` | string | Yes | Person's last name. |
-
-Cost: 10 pts.
-
-#### `run_phone_enrichment`
-Enriches a known phone number with profile data (name, emails, company, LinkedIn/X/Telegram, carrier), worldwide.
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| `phone` | string | Yes | Phone number in international format, e.g. `+1234567890` |
-
-Cost: 10 pts.
-
-#### `run_phone_enrichment_us`
-Validates and enriches a **US** phone number specifically: carrier, line type, activity score, litigator risk, and owner records (with addresses).
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| `phone` | string | Yes | US phone number, e.g. `12069735100` |
-
-Cost: 100 pts.
-
-#### `run_crunchbase_company`
-Fetches structured company data from a Crunchbase organization URL (website, location, founding year, employees, industries, funding, description).
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| `url` | string | Yes | Crunchbase organization URL, e.g. `https://www.crunchbase.com/organization/openai` |
-
-Cost: 15 pts.
-
-### Data sources not exposed as dedicated tools
-
-NeuralVerge's [catalog](https://neuralverge.ai/data-sources) lists **29 data sources** in total. The 11 above have dedicated endpoints/tools. The other **18** are all reached through `run_extract` — pass the source's own page URL as `url` and a matching `extract_schema_json`; the "Read more" page for each source on the catalog site has the exact schema and an example `curl` call. All of them cost 5 pts (the standard `run_extract` price), except where noted.
-
-**Company intelligence**
-
-| Source | What it returns | Cost |
+| Category | Tools | Examples |
 | --- | --- | --- |
-| Capterra | Description, rating, use cases, alternatives, FAQs, features, pricing, integrations, support. | 5 pts |
-| Capterra reviews | User reviews. | 5 pts |
-| G2 | Product info, rating, reviews, discussions, pricing, features. | 5 pts |
-| Trustpilot | Review summary, rating, common topics, company details, contact info, similar companies. | 5 pts |
+| AI Research | 2 | `run_research`, `get_session_status` |
+| Search | 1 | `run_search` |
+| AI Extract | 1 | `run_extract` |
+| Social media | 5 | `run_linkedin_email`, `run_linkedin_people_search`, `run_linkedin_company_search` |
+| Enrichment | 5 | `run_email_enrichment`, `run_email_validation`, `run_email_finder`, `run_phone_enrichment` |
+| Company intelligence | 1 | `run_crunchbase_company` |
+| E-commerce & Marketplaces | 128 | Amazon, eBay, Walmart, AliExpress, Alibaba products, sellers, reviews |
+| Product reviews | 15 | Capterra, Gartner Peer Insights, Trustpilot |
+| Company Registries | 93 | country-specific company registries |
+| Startup & Funding Data | 93 | startups, funding rounds, investors |
 
-**Corporate registry** (official company registers, by country)
+Tool names follow the endpoint path: `POST /functions/v1/run-amazon-product-search` → `run_amazon_product_search`.
 
-| Source | Country | What it returns | Cost |
-| --- | --- | --- | --- |
-| Companies House company | 🇬🇧 UK | Registered office, status, type, incorporation date, SIC codes, officers, persons with significant control. | 5 pts |
-| Companies House filings | 🇬🇧 UK | Filing date, description, document link. | 5 pts |
-| Companies House officers | 🇬🇧 UK | Officer name, correspondence address, role, appointment date. | 5 pts |
-| Ariregister company | 🇪🇪 Estonia | General info, VAT info, right of representation, contacts, shareholders, tax info, documents. | 5 pts |
-| CVR company | 🇩🇰 Denmark | Business info, ownership, financial statements, production units, registration history, employee counts. | 5 pts |
-| Czech Business Register search | 🇨🇿 Czech Republic | Structured results from a register search. | 5 pts |
-| INPI company | 🇫🇷 France | Identity, management/direction, establishments, observations and documents. | 5 pts |
-| KBO company | 🇧🇪 Belgium | General info, functions, entrepreneurial skill, characteristics, authorisations, entity links. | 5 pts |
-| KRS company | 🇵🇱 Poland | Basic/contact/address data, VAT confirmation, bankruptcy info, legal representatives. | 5 pts |
-| YTJ company | 🇫🇮 Finland | Business ID, name, company form, home municipality, line of business, registration history. | 5 pts |
-| LEI Lookup company | 🌐 Global | LEI registration details, company data, legal address. | 5 pts |
-| LEI Lookup search | 🌐 Global | Structured results from an LEI search. | 5 pts |
+> **Context size:** all 344 tool definitions together are large. If your client caps active tools or you want to save context, enable only the tools you need in the client's tool picker.
 
-**Social media** (LinkedIn, without a dedicated tool)
+### Keeping tools in sync with the docs
 
-| Source | What it returns | Cost |
-| --- | --- | --- |
-| LinkedIn company profile | ID, name, country, locations, followers, employee count, about, specialties. | 5 pts |
-| LinkedIn people profile | Name, headline, about, location, current company, full role/education history, certifications, languages, recent posts + engagement. | 5 pts |
+When NeuralVerge adds or changes endpoints, regenerate the tools and rebuild:
 
-Example: fetching a UK company record via `run_extract`:
-
-```json
-{
-  "url": "https://find-and-update.company-information.service.gov.uk/company/08804411",
-  "instructions": "Extract data from Companies House profile",
-  "settings": {
-    "country_code": "us",
-    "extract_schema_json": "{ ... }"
-  }
-}
+```bash
+npm run generate   # fetches https://docs.neuralverge.ai/openapi.json -> src/endpoints.generated.ts + docs/TOOLS.md
+npm run build
 ```
 
 ## Pricing
@@ -285,9 +169,9 @@ NeuralVerge uses simple, points-based pricing — one pool of points covers rese
 | Action | Cost |
 | --- | --- |
 | `run_search` (Search) | 5 pts |
-| `run_extract` (AI Extract) — and every data source routed through it | 5 pts |
-| `run_research` / `run_agent` (AI research) | 20–400 pts, priced by task depth (see below) |
-| Most dedicated Data Source tools | 1–15 pts (see per-tool cost above) |
+| `run_extract` (AI Extract) | 5 pts |
+| `run_research` (AI research) | 20–400 pts, priced by task depth (see below) |
+| Data Source tools | priced per endpoint — see each endpoint's page at [docs.neuralverge.ai](https://docs.neuralverge.ai) |
 | `run_linkedin_people_search` | 100 pts per 25 results |
 | `run_linkedin_company_employee` | 30 pts/run + 5 pts/profile |
 | `run_phone_enrichment_us` | 100 pts |
@@ -406,9 +290,15 @@ The NeuralVerge API returns these status codes, which this server surfaces as MC
 
 ```
 src/
-  client.ts   # thin fetch wrapper: auth header, error mapping
-  tools.ts     # all 16 MCP tool definitions (input schemas + handlers)
-  index.ts     # MCP server bootstrap (stdio transport, or Streamable HTTP if MCP_TRANSPORT=http)
+  client.ts                # thin fetch wrapper: auth header, error mapping
+  tools.ts                 # registers one MCP tool per endpoint (JSON schema -> zod)
+  endpoints.generated.ts   # all 344 endpoints, generated from the OpenAPI spec
+  endpoint-types.ts        # types for the generated endpoint list
+  index.ts                 # MCP server bootstrap (stdio transport, or Streamable HTTP if MCP_TRANSPORT=http)
+scripts/
+  generate-endpoints.mjs   # `npm run generate`: OpenAPI spec -> endpoints.generated.ts + docs/TOOLS.md
+docs/
+  TOOLS.md                 # generated catalog of all tools
 ```
 
 ## License

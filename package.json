@@ -1,6 +1,6 @@
 {
-  "name": "neuralverge-mcp-server",
-  "version": "1.0.2",
+  "name": "@neuralverge/mcp-server",
+  "version": "1.0.3",
   "mcpName": "ai.neuralverge/neuralverge",
   "description": "NeuralVerge MCP server: the data layer for agentic AI. Search, AI Extract and 300+ data sources (marketplaces, corporate registries, company intelligence, enrichment, social) as tools",
   "type": "module",

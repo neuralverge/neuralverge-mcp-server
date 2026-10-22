@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "ai.neuralverge/neuralverge",
+  "title": "NeuralVerge",
+  "description": "Structured, cited, real-world data from 300+ sources and the open web for your AI agents.",
+  "version": "1.0.2",
+  "websiteUrl": "https://neuralverge.ai",
+  "repository": {
+    "url": "https://github.com/neuralverge/neuralverge-mcp-server",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.neuralverge.ai/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Optional. 'Bearer YOUR_API_KEY' (your NeuralVerge API key). Omit it to sign in with OAuth instead.",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

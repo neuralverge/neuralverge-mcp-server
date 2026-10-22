@@ -1,0 +1,35 @@
+version: 0.0.1
+type: plugin
+author: neuralverge
+name: neuralverge
+label:
+  en_US: neuralverge
+  ja_JP: neuralverge
+  zh_Hans: neuralverge
+  pt_BR: neuralverge
+description:
+  en_US: 'Data layer for agentic AI: Search, AI Extract and 300+ structured data sources via the NeuralVerge hosted MCP server.'
+  ja_JP: 'Data layer for agentic AI: Search, AI Extract and 300+ structured data sources via the NeuralVerge hosted MCP server.'
+  zh_Hans: 'Data layer for agentic AI: Search, AI Extract and 300+ structured data sources via the NeuralVerge hosted MCP server.'
+  pt_BR: 'Data layer for agentic AI: Search, AI Extract and 300+ structured data sources via the NeuralVerge hosted MCP server.'
+icon: icon.svg
+icon_dark: icon-dark.svg
+resource:
+  memory: 268435456
+  permission: {}
+plugins:
+  tools:
+    - provider/neuralverge.yaml
+meta:
+  version: 0.0.1
+  arch:
+    - amd64
+    - arm64
+  runner:
+    language: python
+    version: "3.12"
+    entrypoint: main
+  minimum_dify_version: null
+created_at: 2026-10-20T14:52:28.141853+03:00
+privacy: PRIVACY.md
+verified: false

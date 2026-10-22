@@ -19,9 +19,13 @@ export class NeuralVergeApiError extends Error {
       case 401:
         return `Unauthorized (401): authentication failed. Check NEURALVERGE_API_KEY. ${detail}`;
       case 402:
-        return `Payment Required (402): plan or usage limits reached. ${detail}`;
+        return detail.includes("onboarding_required")
+          ? `Payment Required (402): onboarding is not finished for this organization. Complete onboarding in the NeuralVerge dashboard. ${detail}`
+          : `Payment Required (402): plan or usage limits reached. ${detail}`;
       case 404:
         return `Not Found (404): the requested resource does not exist or is not available. ${detail}`;
+      case 429:
+        return `Too Many Requests (429): the request waited 60 seconds in the queue without a free slot (organization or endpoint rate limit). It never ran, so it is safe to retry after an exponential backoff. ${detail}`;
       case 500:
         return `Internal Error (500): upstream provider or temporary service failure. ${detail}`;
       default:

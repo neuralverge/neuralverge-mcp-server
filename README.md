@@ -38,21 +38,19 @@ This repository is a **self-hosted equivalent** of that server: same tool names,
 1. **Get an API key.** In the NeuralVerge dashboard open **Settings → API**, click **Create API Key**, and copy the key. Keep it private — it is the only thing that authenticates the connection.
 2. **Point your client at a server.** Either use NeuralVerge's hosted endpoint, or run this repository (see [Installation](#installation) and [Transports & client compatibility](#transports--client-compatibility)).
 
-   Hosted endpoint, Claude Code:
+   Hosted endpoint, Claude Code (sign in with OAuth from `/mcp`; add `--header "Authorization: Bearer YOUR_API_KEY"` for CI or headless use):
 
    ```bash
-   claude mcp add --transport http neuralverge \
-     https://api.neuralverge.ai/functions/v1/mcp-server \
-     --header "Authorization: Bearer YOUR_API_KEY"
+   claude mcp add --transport http neuralverge https://mcp.neuralverge.ai/mcp
    ```
 
-   Hosted endpoint, Cursor and other JSON clients:
+   Hosted endpoint, Cursor and other JSON clients (omit `headers` to sign in with OAuth instead of an API key):
 
    ```json
    {
      "mcpServers": {
        "neuralverge": {
-         "url": "https://api.neuralverge.ai/functions/v1/mcp-server",
+         "url": "https://mcp.neuralverge.ai/mcp",
          "headers": {
            "Authorization": "Bearer YOUR_API_KEY"
          }
@@ -72,7 +70,7 @@ This repository is a **self-hosted equivalent** of that server: same tool names,
 ### Hosted endpoint
 
 ```
-https://api.neuralverge.ai/functions/v1/mcp-server
+https://mcp.neuralverge.ai/mcp
 ```
 
 The hosted server speaks MCP's **Streamable HTTP** transport and is stateless — each request is handled independently, with no session to keep alive between calls. Requests must include:
@@ -81,16 +79,24 @@ The hosted server speaks MCP's **Streamable HTTP** transport and is stateless �
 Accept: application/json, text/event-stream
 ```
 
+The earlier endpoint, `https://api.neuralverge.ai/functions/v1/mcp-server`, still works with an API key but does not support sign-in. Use `https://mcp.neuralverge.ai/mcp` for new connections.
+
 ### Authentication
 
-Send your API key as a bearer token — the same key the REST API uses: `Authorization: Bearer YOUR_API_KEY`. Create a key under **Settings → API** in the dashboard (see [docs.neuralverge.ai/authentication](https://docs.neuralverge.ai/authentication)). On the hosted endpoint, a request with a missing or invalid key is rejected with `401 Unauthorized` before any tool runs. When you run this repository instead, the key is passed to the server process as `NEURALVERGE_API_KEY` (see [Configuration](#configuration)).
+The hosted server accepts two kinds of credentials, both sent as `Authorization: Bearer …` and both billed to your organization:
+
+- **Sign in with OAuth (recommended).** Clients that support MCP authorization — Claude, ChatGPT, Claude Code, Cursor, VS Code, Windsurf, Gemini CLI and others — discover NeuralVerge's sign-in automatically: add the URL with no credentials and approve access in the browser window that opens (OAuth 2.1, dynamic client registration, PKCE S256). Each connection appears under **Settings → API** in the dashboard with a label starting with `Connector:`; the key does not expire, so revoke it there to disconnect a client. Removing the server from the client alone does not revoke it.
+- **API key.** For clients without browser sign-in, create a key under **Settings → API** (see [docs.neuralverge.ai/authentication](https://docs.neuralverge.ai/authentication)) and send `Authorization: Bearer YOUR_API_KEY` — the same key the REST API uses.
+
+Listing tools (`initialize`, `tools/list`) works without credentials; calling a tool requires them, otherwise the hosted server answers `401 Unauthorized` with a `WWW-Authenticate` header pointing OAuth-capable clients to the sign-in flow. When you run this repository instead, the key is passed to the server process as `NEURALVERGE_API_KEY` (see [Configuration](#configuration)); there is no OAuth flow.
 
 ### Tool count
 
-`tools/list` returns every tool in one response — roughly 150 KB of JSON for the hosted tool set, a bit more here. Two things follow from that:
+`tools/list` returns all 342 tools in one response — several hundred kilobytes of JSON. Three things follow from that:
 
 - A model pays for those definitions in context on every conversation that has the server attached.
-- Clients that limit the number of active tools will load only some of them, and the rest will be invisible to the model.
+- Clients that limit the number of active tools will load only some of them, and the rest will be invisible to the model. Windsurf, for instance, allows 100 at a time.
+- Every tool is stateless, read-only and independent of the others (and is annotated `readOnlyHint` here), so a client can run several calls in parallel.
 
 If you only need a few sources, attach the server to a client that lets you pick tools, or proxy it and expose the subset you use.
 
@@ -101,13 +107,14 @@ Every tool returns its result directly in the tool response — there is no sess
 ### Connecting an MCP client
 
 - **Claude Code, Cursor and other JSON-config clients** — see the [Quickstart](#quickstart) above.
-- **Generic remote HTTP client (ChatGPT, etc.)** — add a remote MCP connector pointing at the hosted endpoint above (or at your own deployment of this server in HTTP mode, see [Streamable HTTP](#streamable-http-chatgpt--remote-clients)), with an `Authorization: Bearer YOUR_API_KEY` header. Any client that speaks MCP's Streamable HTTP transport works.
-- **MCP Inspector** — run `npx @modelcontextprotocol/inspector`, connect to `https://api.neuralverge.ai/functions/v1/mcp-server` in **HTTP** mode, and set the `Authorization` header to explore and test tools interactively.
+- **Claude, ChatGPT** — add a custom connector / MCP server pointing at the hosted endpoint above and choose OAuth (leave client ID and secret empty; the client registers itself). To use your own deployment of this server in HTTP mode instead, see [Streamable HTTP](#streamable-http-chatgpt--remote-clients).
+- **Any other Streamable HTTP client** — point it at the URL; if it supports MCP authorization it will offer to sign in, otherwise set `Authorization: Bearer YOUR_API_KEY`. Clients that only speak SSE or stdio can use an MCP proxy such as `mcp-remote`. Step-by-step setup for every client is on [Connect MCP](https://docs.neuralverge.ai/connect-a-client).
+- **MCP Inspector** — run `npx @modelcontextprotocol/inspector`, choose the Streamable HTTP transport, connect to `https://mcp.neuralverge.ai/mcp`, and sign in with OAuth or set the `Authorization` header to explore and test tools interactively.
 
 ### Example request
 
 ```bash
-curl -X POST "https://api.neuralverge.ai/functions/v1/mcp-server" \
+curl -X POST "https://mcp.neuralverge.ai/mcp" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -H "Accept: application/json, text/event-stream" \
@@ -124,7 +131,7 @@ curl -X POST "https://api.neuralverge.ai/functions/v1/mcp-server" \
 
 ### Errors
 
-Once a request is authenticated, errors from an individual tool call (invalid parameters, `402 Payment Required` for usage limits, upstream failures, and so on) are returned inside the MCP tool result with `isError: true` rather than as an HTTP failure — this lets the calling model see and react to the error instead of the whole request failing. The underlying status codes are the same ones described in [Errors & Rate Limits](https://docs.neuralverge.ai/errors-and-rate-limits) and in [Error handling](#error-handling) below.
+A tool call without an `Authorization` header fails the whole request with `401 Unauthorized`; a key that is invalid or revoked is reported inside the tool result instead — remove and re-add the server in your client to sign in again. Once a request is authenticated, errors from an individual tool call (invalid parameters, `402 Payment Required` for usage limits, upstream failures, and so on) are returned inside the MCP tool result with `isError: true` rather than as an HTTP failure — this lets the calling model see and react to the error instead of the whole request failing. The underlying status codes are the same ones described in [Errors & Rate Limits](https://docs.neuralverge.ai/errors-and-rate-limits) and in [Error handling](#error-handling) below.
 
 ## Tools
 
@@ -657,9 +664,10 @@ The NeuralVerge API returns these status codes, which this server surfaces as MC
 | Status | Meaning |
 | --- | --- |
 | 400 | Bad Request — invalid body/parameters. Not retryable without fixing the request. |
-| 401 | Unauthorized — missing/invalid/expired token. Check `NEURALVERGE_API_KEY`. |
-| 402 | Payment Required — plan or usage limits reached (out of points). |
+| 401 | Unauthorized — missing/invalid/revoked token. Check `NEURALVERGE_API_KEY`. |
+| 402 | Payment Required — plan or usage limits reached (out of points), or onboarding not finished (`onboarding_required`). |
 | 404 | Not Found — invalid session id or inaccessible resource. |
+| 429 | Too Many Requests — the request waited 60 s in the queue without a free slot (organization or per-endpoint rate limit). It never ran, so it is safe to retry after an exponential backoff. |
 | 500 | Internal Error — upstream/provider issue. Safe to retry. |
 
 ## Project structure

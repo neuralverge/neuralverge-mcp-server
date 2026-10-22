@@ -3,12 +3,33 @@
   "name": "ai.neuralverge/neuralverge",
   "title": "NeuralVerge",
   "description": "Structured, cited, real-world data from 300+ sources and the open web for your AI agents.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "websiteUrl": "https://neuralverge.ai",
   "repository": {
     "url": "https://github.com/neuralverge/neuralverge-mcp-server",
     "source": "github"
   },
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "neuralverge-mcp-server",
+      "version": "1.0.2",
+      "runtimeHint": "npx",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "NEURALVERGE_API_KEY",
+          "description": "Your NeuralVerge API key, created in the dashboard under Settings > API.",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        }
+      ]
+    }
+  ],
   "remotes": [
     {
       "type": "streamable-http",

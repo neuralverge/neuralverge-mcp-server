@@ -8,7 +8,7 @@ import { registerTools } from "./tools.js";
 function buildServer(): McpServer {
   const server = new McpServer({
     name: "neuralverge-mcp-server",
-    version: "1.0.1",
+    version: "1.0.2",
   });
   registerTools(server);
   return server;

@@ -3,7 +3,7 @@
   "name": "ai.neuralverge/neuralverge",
   "title": "NeuralVerge",
   "description": "Structured, cited, real-world data from 300+ sources and the open web for your AI agents.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "websiteUrl": "https://neuralverge.ai",
   "repository": {
     "url": "https://github.com/neuralverge/neuralverge-mcp-server",

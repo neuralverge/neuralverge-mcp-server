@@ -2,6 +2,8 @@
 
 **The data layer for agentic AI.**
 
+> **Before you start:** sign up at [app.neuralverge.ai](https://app.neuralverge.ai) and activate your trial. The MCP server works only with a NeuralVerge account: you connect with an API key from it, or sign in with OAuth.
+
 One API and MCP server that gives an agent verified, structured, cited facts about the real world, mid-task. Agents don't need search results or raw HTML — they need a finished answer, from one API instead of five vendors.
 
 NeuralVerge draws structured data from 300+ sources — e-commerce marketplaces, corporate registries, startup and funding data, company intelligence, product reviews, enrichment and social — plus the open web, all in one request format. This [MCP](https://modelcontextprotocol.io) (Model Context Protocol) server exposes Search, AI Extract and every Data Source as tools, so any MCP-compatible client (Claude, ChatGPT, Gemini, Cursor and others) can call them directly. No scrapers, no pipelines, no glue code. Plans from $50/month.
@@ -19,7 +21,7 @@ Teams use NeuralVerge for agentic products, go-to-market, outbound, market resea
 
 Before installing, you need a NeuralVerge account and an API key:
 
-1. Sign up at [app.neuralverge.ai](https://app.neuralverge.ai) (or via [neuralverge.ai](https://neuralverge.ai) → "Get started").
+1. Sign up at [app.neuralverge.ai](https://app.neuralverge.ai) (or via [neuralverge.ai](https://neuralverge.ai) → "Get started") and activate your trial.
 2. Choose a plan (see [Pricing](#pricing) below) — this determines your monthly points allowance.
 3. Generate an API key from your account/API settings in the app.
 4. Use that key as `NEURALVERGE_API_KEY` in the [Configuration](#configuration) step further down.
